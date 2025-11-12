@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shkandal-api", "shkandal-api.csproj", "{4CA9ED4B-9045-4634-BDC8-8DDDE1B3F81A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CA9ED4B-9045-4634-BDC8-8DDDE1B3F81A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA9ED4B-9045-4634-BDC8-8DDDE1B3F81A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA9ED4B-9045-4634-BDC8-8DDDE1B3F81A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA9ED4B-9045-4634-BDC8-8DDDE1B3F81A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D05B68CE-FA39-4DB2-9AD5-DA65E1201337}
+	EndGlobalSection
+EndGlobal
