@@ -1,0 +1,16 @@
+﻿bin/
+obj/
+out/
+
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+.vscode/
+*.vs/
+*.log
+
+*.nupkg
+packages/
+.nuget/
