@@ -8,7 +8,10 @@ out/
 *.sln.docstates
 
 .vscode/
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 5c37944 (add Backend directory)
 *.vs/
 *.log
 
