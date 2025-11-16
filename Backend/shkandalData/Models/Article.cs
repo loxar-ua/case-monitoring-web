@@ -21,7 +21,9 @@ namespace shkandalData.Models
         public string? Content { get; set; }
         public string? Status { get; set; }
         public DateTime? LastViewedAt { get; set; }
-        public int ViewCounter { get; set; }
+        public DateTime? PublishedAt {  get; set; }
+        public required bool IsRelevant { get; set; }
+        public required int ViewCounter { get; set; }
         public Pgvector.Vector? Embedding { get; set; }
     }
 }
