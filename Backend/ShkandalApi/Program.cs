@@ -1,18 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using EFCore.NamingConventions;
+using ShkandalInfrastructure;
+using shkandalData.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<ShkandalDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("ShkandalConnection"),
+        o => o.UseVector()).UseCamelCaseNamingConvention());
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
 
 app.UseHttpsRedirection();
 
