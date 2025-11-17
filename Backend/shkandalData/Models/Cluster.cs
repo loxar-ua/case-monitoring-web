@@ -11,6 +11,7 @@ namespace shkandalData.Models
         public int Id { get; set; }
         public required string Name { get; set; }
         public bool IsActive { get; set; }
+        public required int ViewCounter { get; set; }
 
         public ICollection<Article> Articles { get; set; } = new List<Article>();
     }
