@@ -1,10 +1,11 @@
-﻿using System;
+﻿using shkandalData.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace shkandalData.Models
+namespace ShkandalData.Models
 {
     public class Cluster
     {

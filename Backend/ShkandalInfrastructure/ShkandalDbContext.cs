@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using shkandalData.Models;
 using System.Reflection.Emit;
+using ShkandalData.Models;
 namespace ShkandalInfrastructure
 {
     public class ShkandalDbContext : DbContext
