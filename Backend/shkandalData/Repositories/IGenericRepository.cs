@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace shkandalData.Repositories
+namespace ShkandalData.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {

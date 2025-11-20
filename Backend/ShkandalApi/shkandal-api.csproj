@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\shkandalData\shkandalData.csproj" />
+    <ProjectReference Include="..\ShkandalData\ShkandalData.csproj" />
     <ProjectReference Include="..\ShkandalInfrastructure\ShkandalInfrastructure.csproj" />
   </ItemGroup>
 

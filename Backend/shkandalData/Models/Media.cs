@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace shkandalData.Models
+namespace ShkandalData.Models
 {
     public class Media
     {
