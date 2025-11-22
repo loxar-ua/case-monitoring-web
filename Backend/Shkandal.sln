@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShkandalApi", "ShkandalApi"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shkandal-api", "ShkandalApi\shkandal-api.csproj", "{19812357-80B6-44D5-B463-721A71DF109A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShkandalData", "ShkandalData", "{52656D44-DD0F-63F8-0257-CF5B24983727}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShkandalInfrastructure", "ShkandalInfrastructure", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShkandalInfrastructure", "ShkandalInfrastructure\ShkandalInfrastructure.csproj", "{A909B9F4-E4E1-456C-971C-C879435C8025}"
