@@ -1,4 +1,5 @@
-﻿using ShkandalData.Models;
+﻿using ShkandalData.Common;
+using ShkandalData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace ShkandalData.Repositories
 {
-    public interface IClusterRepository : IGenericRepository<Cluster>
+    public interface IClusterRepository 
     {
-        Task<IEnumerable<Cluster>> SearchByNameAsync(string term);
+        Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int pageNumber, int pageSize);
+        Task<Cluster?> GetByIdAsync(int id);
+        Task<Cluster?> IncrementViewCounterAsync(int id);
     }
 }
