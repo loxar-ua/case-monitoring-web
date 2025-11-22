@@ -14,6 +14,7 @@ namespace ShkandalData.Models
         public required int ViewCounter { get; set; }
         public string? Content { get; set; }
         public string? FeaturedImageURL { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
         public ICollection<Article> Articles { get; set; } = new List<Article>();
     }
 }
