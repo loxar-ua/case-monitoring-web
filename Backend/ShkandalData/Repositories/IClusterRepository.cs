@@ -10,8 +10,8 @@ namespace ShkandalData.Repositories
 {
     public interface IClusterRepository 
     {
-        Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int pageNumber, int pageSize);
-        Task<Cluster?> GetByIdAsync(int id);
-        Task<Cluster?> IncrementViewCounterAsync(int id);
+        public Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int pageNumber, int pageSize);
+        public Task<Cluster?> GetByIdAsync(int id);
+        public Task<Cluster?> IncrementViewCounterAsync(int id);
     }
 }

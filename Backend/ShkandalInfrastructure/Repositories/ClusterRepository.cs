@@ -52,10 +52,5 @@ namespace ShkandalInfrastructure.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
-
-        public async Task<bool> ClusterExistsAsync(int clusterId)
-        {
-            return await _context.Clusters.AnyAsync(c => c.Id == clusterId);
-        }
     }
 }

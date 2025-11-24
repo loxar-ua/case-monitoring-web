@@ -30,7 +30,7 @@ namespace ShkandalInfrastructure.Repositories
         public async Task<Article?> GetArticleById(int id)
         {
             return await _dbSet
-                .Include(a => a.ClusterId)
+                .Include(a => a.Cluster)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
@@ -40,6 +40,9 @@ namespace ShkandalInfrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-
+        public async Task<bool> ClusterExistsAsync(int clusterId)
+        {
+            return await _context.Clusters.AnyAsync(c => c.Id == clusterId);
+        }
     }
 }
