@@ -23,13 +23,28 @@ namespace ShkandalInfrastructure.Repositories
         {
             var query = _dbSet
                .AsNoTracking()
-               .OrderByDescending(c => c.ViewCounter)
                .AsQueryable();
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.Where(c => c.Name.Contains(searchTerm));
+                query = query.OrderByDescending(c => c.ViewCounter);
             }
-            return await PagedList<Cluster>.CreateAsync(query, pageNumber, pageSize);
+            else
+            {
+                if(searchTerm.Length < 5)
+                {
+                    query = query
+                        .Where(c => EF.Functions.ILike(c.Name, $"{searchTerm}%"))
+                        .OrderByDescending(c => c.ViewCounter);
+                }
+                else
+                {
+                    query = query
+                        .Where(c => EF.Functions.TrigramsSimilarity(c.Name, searchTerm) > 0.3)
+                        .OrderByDescending(c => EF.Functions.TrigramsSimilarity(c.Name, searchTerm))
+                        .ThenByDescending(c => c.ViewCounter);
+                }
+            }
+                return await PagedList<Cluster>.CreateAsync(query, pageNumber, pageSize);
         }
 
         public async Task<Cluster?> GetByIdAsync(int id)
