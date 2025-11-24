@@ -15,6 +15,9 @@ builder.Services.AddDbContext<ShkandalDbContext>(options =>
         o => o.UseVector()).UseCamelCaseNamingConvention());
 
 builder.Services.AddScoped<IClusterRepository, ClusterRepository>();
+builder.Services.AddScoped<IAdminArticlesRepository, AdminArticlesRepository>();
+builder.Services.AddScoped<IAdminClustersRepository, AdminClustersRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
