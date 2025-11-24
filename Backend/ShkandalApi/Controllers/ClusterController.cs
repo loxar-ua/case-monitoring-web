@@ -47,7 +47,7 @@ namespace shkandal_api.Controllers
 
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult<ClusterUpdateDto>> IncrementViewCounterByClusterId(int id)
+        public async Task<ActionResult<ClusterUpdateDto>> IncrementViewCounter(int id)
         {
             var cluster = await _repository.IncrementViewCounter(id);
 

@@ -9,6 +9,7 @@ namespace shkandal_api.DTOs.ClusterDtos
         public string Name { get; set; }
         public int ViewCounter { get; set; }
         public string? Content { get; set; }
+        public string? FeaturedImageURL { get; set; }
         public ICollection<ArticleReadDto> Articles { get; set; } = new List<ArticleReadDto>();
     }
 }
