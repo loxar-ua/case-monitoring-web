@@ -24,6 +24,9 @@ namespace ShkandalInfrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasPostgresExtension("vector");
+
+            modelBuilder.HasPostgresExtension("pg_trgm");
 
             modelBuilder.Entity<Article>(entity =>
             {
@@ -64,6 +67,12 @@ namespace ShkandalInfrastructure
                 entity.HasKey(c => c.Id);
                 entity.Property(c => c.IsActive).HasColumnName("is_active");
                 entity.Property(c => c.ViewCounter).HasColumnName("view_counter");
+                entity.Property(c => c.FeaturedImageURL).HasColumnName("featured_image_url");
+                entity.Property(c => c.LastUpdatedAt).HasColumnName("last_updated_at");
+
+                entity.HasIndex(c => c.Name)
+                      .HasMethod("gin")
+                      .HasOperators("gin_trgm_ops");
             });
 
 
@@ -75,8 +84,6 @@ namespace ShkandalInfrastructure
                 entity.Property(m => m.IsActive).HasColumnName("is_active");
                 entity.Property(m => m.SitemapIndexURL).HasColumnName("sitemap_index_url");
             });
-
-            modelBuilder.HasPostgresExtension("vector");
         }
     }
 }
