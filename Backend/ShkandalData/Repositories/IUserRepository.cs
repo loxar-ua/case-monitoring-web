@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShkandalData.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ShkandalData.Repositories
 {
     public interface IUserRepository
     {
-        // TO Do
+        public Task<User?> GetUserByUsername(string username);
     }
 }

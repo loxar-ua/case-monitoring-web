@@ -56,6 +56,7 @@ namespace ShkandalData.Common
 
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
+        
         public PagedList<U> Select<U>(Func<T, U> selector)
         {
             var mappedItems = Items.Select(selector).ToList();
