@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity.Data;
-using Microsoft.AspNetCore.Mvc;
-using shkandal_api.DTOs.UserDtos;
+﻿using Microsoft.AspNetCore.Mvc;
+using shkandalData.DTOs.UserDtos;
 using shkandalData.Models;
 using ShkandalServices;
 

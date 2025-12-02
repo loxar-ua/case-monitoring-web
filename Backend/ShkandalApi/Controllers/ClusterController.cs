@@ -1,31 +1,26 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using shkandal_api.DTOs.ClusterDtos;
-using shkandal_api.DTOs.ClusterDTOs;
-using shkandalData.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using shkandalData.DTOs.ClusterDtos;
+using ShkandalServices;
+
 
 namespace shkandal_api.Controllers
 {
     [ApiController]
+    //[Authorize]
     [Route("api/[controller]")]
     public class ClusterController: ControllerBase
     {
-        private readonly IClusterRepository _repository;
-        private readonly IMapper _mapper;
+        private readonly IClusterService _service;
 
-        public ClusterController(IClusterRepository repository, IMapper mapper)
+        public ClusterController(IClusterService service)
         {
-            _repository = repository;
-            _mapper = mapper;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClusterReadDto>>> GetAllClustersAsync([FromQuery] string name, [FromQuery] int pageNumber, [FromQuery] int pageSize)
+        public async Task<ActionResult<PagedList<ClusterReadDto>>> GetAllClustersAsync([FromQuery] string name, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var clusters = await _repository.GetAllAsync(name, pageNumber, pageSize);
-
-            var result = clusters.Select(cluster =>
-                           _mapper.Map<ClusterReadDto>(cluster)).ToList();
+            var result = await _service.GetAllClustersAsync(name, pageNumber, pageSize);
 
             return Ok(result);
         }
@@ -33,14 +28,12 @@ namespace shkandal_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ClusterDetailedReadDto>> GetClusterById(int id)
         {
-            var cluster = await _repository.GetByIdAsync(id);
+            var result = await _service.GetByIdAsync(id);
 
-            if(cluster == null)
+            if(result == null)
             {
                 return NotFound();
             }
-
-            var result = _mapper.Map<ClusterDetailedReadDto>(cluster);
 
             return Ok(result);
         }
@@ -49,14 +42,12 @@ namespace shkandal_api.Controllers
         [HttpPatch("{id}")]
         public async Task<ActionResult<ClusterUpdateDto>> IncrementViewCounter(int id)
         {
-            var cluster = await _repository.IncrementViewCounter(id);
+            var result = await _service.IncrementViewCounterAsync(id);
 
-            if (cluster == null)
+            if (result == null)
             {
                 return NotFound();
             }
-
-            var result = _mapper.Map<ClusterUpdateDto>(cluster);
 
             return Ok(result);
         }

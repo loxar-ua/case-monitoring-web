@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using shkandal_api.DTOs.ArticleDtos;
-using shkandal_api.DTOs.ClusterDtos;
-using shkandal_api.DTOs.ClusterDTOs;
-using shkandalData.Models;
+using shkandalData.DTOs.ArticleDtos;
+using ShkandalServices;
+
 
 namespace shkandal_api.Controllers
 {
@@ -13,22 +11,17 @@ namespace shkandal_api.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminArticlesController:ControllerBase
     {
-        private readonly IAdminArticlesControllerRepository _repository;
-        private readonly IMapper _mapper;
+        private readonly IAdminArticlesService _service;
 
-        public AdminArticlesController(IAdminArticlesControllerRepository repository, IMapper mapper)
+        public AdminArticlesController(IAdminArticlesService service)
         {
-            _repository = repository;
-            _mapper = mapper;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArticleAdminReadDto>>> GetAllArticlesNotRelevant([FromQuery] int pageNumber, [FromQuery] int pageSize)
+        public async Task<ActionResult<PagedList<ArticleAdminReadDto>>> GetAllArticlesNotRelevant(int pageNumber = 1, int pageSize = 10)
         {
-            var articles = await _repository.GetAllArticlesNotRelevant(pageNumber, pageSize);
-
-            var result = articles.Select(article =>
-                           _mapper.Map<ArticleAdminReadDto>(article)).ToList();
+            var result = await _service.GetAllArticlesNotRelevant(pageNumber, pageSize);
 
             return Ok(result);
         }
@@ -36,11 +29,9 @@ namespace shkandal_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ArticleAdminReadDto>> GetArticleById(int id)
         {
-            var article = await _repository.GetArticleById(id);
-            if (article == null)
+            var result = await _service.GetArticleById(id);
+            if (result == null)
                 return NotFound();
-
-            var result = _mapper.Map<ArticleAdminReadDto>(article);
 
             return Ok(result);
         }
@@ -50,27 +41,10 @@ namespace shkandal_api.Controllers
         public async Task<ActionResult<ArticleAdminUpdateDto>> ArticleUpdate(int id,
             [FromBody] ArticleAdminUpdateRequest update)
         {
-            var article = await _repository.GetArticleById(id);
-            if (article == null)
+            var result = await _service.ArticleUpdate(id, update);
+            if (result == null)
                 return NotFound();
 
-            if (update.DetachCluster)
-                article.ClusterId = null;
-
-            if (update.IsRelevant.HasValue)
-                article.IsRelevant = update.IsRelevant.Value;
-
-            if (update.ClusterId.HasValue)
-            {
-                if(await _repository.ClusterExistsAsync(update.ClusterId))
-                    article.ClusterId = update.ClusterId.Value;
-                else
-                    return NotFound();
-            }
-
-            var articleUpdated = await _repository.UpdateAsync(article);
-
-            var result = _mapper.Map<ArticleAdminUpdateDto>(articleUpdated);
             return Ok(result);
         }
     }

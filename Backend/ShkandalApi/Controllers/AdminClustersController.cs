@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using shkandal_api.DTOs.ClusterDtos;
-using shkandal_api.DTOs.ClusterDTOs;
+using shkandalData.DTOs.ClusterDtos;
+using ShkandalServices;
 
 namespace shkandal_api.Controllers
 {
@@ -11,27 +10,22 @@ namespace shkandal_api.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminClustersController: ControllerBase
     {
-        private readonly IAdminClustersControllerRepository _repository;
-        private readonly IMapper _mapper;
+        private readonly IAdminClusterService _service;
 
-        public AdminClustersController(IAdminClustersControllerRepository repository, IMapper mapper)
+        public AdminClustersController(IAdminClusterService service)
         {
-            _repository = repository;
-            _mapper = mapper;
+            _service = service;
         }
-
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ClusterAdminReadDto>> GetClusterByIdAsync(int id)
         {
-            var cluster = await _repository.GetClusterByIdAsync(id);
+            var result = await _service.GetClusterByIdAsync(id);
 
-            if (cluster == null)
+            if (result == null)
             {
                 return NotFound();
             }
-
-            var result = _mapper.Map<ClusterAdminReadDto>(cluster);
 
             return Ok(result);
         }
@@ -42,26 +36,11 @@ namespace shkandal_api.Controllers
             [FromBody] ClusterAdminUpdateRequest update)
         {
 
-            var cluster = await _repository.GetClusterById(id);
-            if (cluster == null)
+            var result = await _service.ClusterUpdate(id);
+            if (result == null)
                 return NotFound();
 
-            if (!string.IsNullOrWhiteSpace(update.Name))
-                cluster.Name = update.Name;
-
-            if (update.IsActive.HasValue)
-                cluster.IsActive = update.IsActive.Value;
-
-            if (!string.IsNullOrWhiteSpace(update.Content))
-                cluster.Content = update.Content;
-
-            if (!string.IsNullOrWhiteSpace(update.FeaturedImageURL))
-                cluster.FeaturedImageURL = update.FeaturedImageURL;
-
-            var clusterUpdated = await _repository.UpdateAsync(cluster);
-
-            var result = _mapper.Map<ClusterAdminUpdateDto>(clusterUpdated);
-            return Ok(result);
+            return result;
         }
     }
 }
