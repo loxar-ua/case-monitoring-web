@@ -11,9 +11,9 @@ namespace shkandal_api.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminArticlesController:ControllerBase
     {
-        private readonly IAdminArticlesService _service;
+        private readonly IAdminArticleService _service;
 
-        public AdminArticlesController(IAdminArticlesService service)
+        public AdminArticlesController(IAdminArticleService service)
         {
             _service = service;
         }

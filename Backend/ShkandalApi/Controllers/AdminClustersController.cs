@@ -36,7 +36,7 @@ namespace shkandal_api.Controllers
             [FromBody] ClusterAdminUpdateRequest update)
         {
 
-            var result = await _service.ClusterUpdate(id);
+            var result = await _service.ClusterUpdate(id, update);
             if (result == null)
                 return NotFound();
 

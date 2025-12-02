@@ -28,7 +28,7 @@ namespace shkandal_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ClusterDetailedReadDto>> GetClusterById(int id)
         {
-            var result = await _service.GetByIdAsync(id);
+            var result = await _service.GetClusterById(id);
 
             if(result == null)
             {
