@@ -1,6 +1,6 @@
 ﻿using shkandalData.Models;
 
-namespace shkandal_api.DTOs.ClusterDTOs
+namespace shkandalData.DTOs.ClusterDtos
 {
     public class ClusterReadDto
     {

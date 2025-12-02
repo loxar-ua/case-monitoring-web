@@ -1,7 +1,7 @@
-﻿using shkandal_api.DTOs.ClusterDTOs;
-using shkandal_api.DTOs.MediaDtos;
+﻿using shkandalData.DTOs.ClusterDtos;
+using shkandalData.DTOs.MediaDtos;
 
-namespace shkandal_api.DTOs.ArticleDtos
+namespace shkandalData.DTOs.ArticleDtos
 {
     public class ArticleAdminUpdateDto
     {

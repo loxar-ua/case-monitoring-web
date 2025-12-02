@@ -1,6 +1,6 @@
-﻿using shkandal_api.DTOs.ArticleDtos;
+﻿using shkandalData.DTOs.ArticleDtos;
 
-namespace shkandal_api.DTOs.ClusterDtos
+namespace shkandalData.DTOs.ClusterDtos
 {
     public class ClusterAdminUpdateRequest
     { 

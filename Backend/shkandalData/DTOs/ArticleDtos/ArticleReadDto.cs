@@ -1,7 +1,7 @@
-﻿using shkandal_api.DTOs.MediaDtos;
+﻿using shkandalData.DTOs.MediaDtos;
 using shkandalData.Models;
 
-namespace shkandal_api.DTOs.ArticleDtos
+namespace shkandalData.DTOs.ArticleDtos
 {
     public class ArticleReadDto
     {

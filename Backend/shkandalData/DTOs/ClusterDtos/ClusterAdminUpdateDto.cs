@@ -1,4 +1,4 @@
-﻿namespace shkandal_api.DTOs.ClusterDtos
+﻿namespace shkandalData.DTOs.ClusterDtos
 {
     public class ClusterAdminUpdateDto
     {

@@ -1,4 +1,4 @@
-﻿namespace shkandal_api.DTOs.UserDtos
+﻿namespace shkandalData.DTOs.UserDtos
 {
     public class AdminLoginRequest
     {

@@ -1,4 +1,4 @@
-﻿namespace shkandal_api.DTOs.MediaDtos
+﻿namespace shkandalData.DTOs.MediaDtos
 {
     public class MediaReadDto
     {

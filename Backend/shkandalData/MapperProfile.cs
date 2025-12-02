@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using shkandal_api.DTOs.ArticleDtos;
-using shkandal_api.DTOs.ClusterDtos;
-using shkandal_api.DTOs.ClusterDTOs;
-using shkandal_api.DTOs.MediaDtos;
+using shkandalData.DTOs.ArticleDtos;
+using shkandalData.DTOs.ClusterDtos;
+using shkandalData.DTOs.MediaDtos;
 using shkandalData.Models;
 
-namespace shkandal_api
+namespace shkandalData
 {
     public class MapperProfile : Profile
     {

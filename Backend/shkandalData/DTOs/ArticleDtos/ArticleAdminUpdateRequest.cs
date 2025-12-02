@@ -1,4 +1,4 @@
-﻿namespace shkandal_api.DTOs.ArticleDtos
+﻿namespace shkandalData.DTOs.ArticleDtos
 {
     public class ArticleAdminUpdateRequest
     {
