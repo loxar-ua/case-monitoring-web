@@ -19,7 +19,7 @@ namespace shkandal_api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<ArticleAdminReadDto>>> GetAllArticlesNotRelevant(int pageNumber = 1, int pageSize = 10)
+        public async Task<ActionResult<PagedList<ArticleAdminReadDto>>> GetAllArticlesNotRelevant([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var result = await _service.GetAllArticlesNotRelevant(pageNumber, pageSize);
 
