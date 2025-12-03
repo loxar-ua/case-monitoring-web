@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShkandalData.Common;
 using ShkandalData.Models;
-using ShkandalData.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ShkandalInfrastructure.Repositories
 {
@@ -21,19 +19,20 @@ namespace ShkandalInfrastructure.Repositories
             _dbSet = _context.Set<Article>();
         }
 
-        public async Task<PagedList<Article>> GetAllArticlesNotRelevant(int pageNumber, int pageSize)
+        public async Task<PagedList<Article>> GetAllArticlesNotCheckedAsync(string? searchTerm, int pageNumber, int pageSize)
         {
-            var query = _dbSet
+            var baseQuery = _dbSet
                 .AsNoTracking()
                 .Include(a => a.Media)
                 .Include(a => a.Cluster)
-                .Where(a => a.IsRelevant == false)
-                .OrderByDescending(a => a.PublishedAt);
+                .Where(a => a.IsChecked == false);
+
+            var query = SearchExtensions.ApplySearch(baseQuery, searchTerm);
 
             return await PagedList<Article>.CreateAsync(query, pageNumber, pageSize);
         }
 
-        public async Task<Article?> GetArticleById(int id)
+        public async Task<Article?> GetArticleByIdAsync(int id)
         {
             return await _dbSet
                 .Include(a => a.Media)
@@ -41,10 +40,12 @@ namespace ShkandalInfrastructure.Repositories
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public async Task UpdateAsync(Article article)
+        public async Task<Article> UpdateAsync(Article article)
         {
             _dbSet.Update(article);
             await _context.SaveChangesAsync();
+
+            return article;
         }
 
         public async Task<bool> ClusterExistsAsync(int clusterId)

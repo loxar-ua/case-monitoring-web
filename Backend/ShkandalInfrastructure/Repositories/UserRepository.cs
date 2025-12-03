@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShkandalData.Models;
-using ShkandalData.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace ShkandalInfrastructure.Repositories
             _context = context;
             _dbSet = _context.Set<User>();
         }
-        public async Task<User?> GetUserByUsername(string username)
+        public async Task<User?> GetUserByUsernameAsync(string username)
         {
             return await _dbSet
                 .AsNoTracking()

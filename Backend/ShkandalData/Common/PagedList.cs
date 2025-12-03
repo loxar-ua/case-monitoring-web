@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ShkandalData.Common.Constants;
 
 namespace ShkandalData.Common
 {
@@ -16,7 +17,6 @@ namespace ShkandalData.Common
             CurrentPage = pageNumber;
             TotalCount = count;
             PageSize = pageSize;
-
         }
         public List<T> Items { get; set; }
 
@@ -29,9 +29,6 @@ namespace ShkandalData.Common
 
         public static async  Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
         {
-            const int MaxPageSize = 100;
-            const int DefaultPageSize = 10;
-
             if(pageNumber < 1) 
             {
                 pageNumber = 1;

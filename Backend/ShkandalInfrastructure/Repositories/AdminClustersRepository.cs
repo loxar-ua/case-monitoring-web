@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShkandalData.Common;
 using ShkandalData.Models;
-using ShkandalData.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +18,14 @@ namespace ShkandalInfrastructure.Repositories
             _context = context;
             _dbSet = _context.Set<Cluster>();
         }
+        public async Task<PagedList<Cluster>> GetAllClustersAsync(string? searchTerm, int pageNumber, int pageSize)
+        {
+            var baseQuery = _dbSet.AsNoTracking();
+
+            var query = SearchExtensions.ApplySearch(baseQuery, searchTerm);
+
+            return await PagedList<Cluster>.CreateAsync(query, pageNumber, pageSize);
+        }
 
         public async Task<Cluster?> GetClusterByIdAsync(int id)
         {
@@ -27,10 +35,12 @@ namespace ShkandalInfrastructure.Repositories
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task UpdateAsync(Cluster cluster)
+        public async Task<Cluster> UpdateAsync(Cluster cluster)
         {
             _dbSet.Update(cluster);
             await _context.SaveChangesAsync();
+
+            return cluster;
         }
     }
 }

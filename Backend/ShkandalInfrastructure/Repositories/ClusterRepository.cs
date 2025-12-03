@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShkandalData.Common;
 using ShkandalData.Models;
-using ShkandalData.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,30 +20,11 @@ namespace ShkandalInfrastructure.Repositories
         }
         public async Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int pageNumber, int pageSize)
         {
-            var query = _dbSet
-               .AsNoTracking()
-               .AsQueryable();
-            if (string.IsNullOrWhiteSpace(searchTerm))
-            {
-                query = query.OrderByDescending(c => c.ViewCounter);
-            }
-            else
-            {
-                if(searchTerm.Length < 5)
-                {
-                    query = query
-                        .Where(c => EF.Functions.ILike(c.Name, $"{searchTerm}%"))
-                        .OrderByDescending(c => c.ViewCounter);
-                }
-                else
-                {
-                    query = query
-                        .Where(c => EF.Functions.TrigramsSimilarity(c.Name, searchTerm) > 0.3)
-                        .OrderByDescending(c => EF.Functions.TrigramsSimilarity(c.Name, searchTerm))
-                        .ThenByDescending(c => c.ViewCounter);
-                }
-            }
-                return await PagedList<Cluster>.CreateAsync(query, pageNumber, pageSize);
+            var baseQuery = _dbSet.AsNoTracking();
+            
+            var query = SearchExtensions.ApplySearch(baseQuery, searchTerm);
+
+            return await PagedList<Cluster>.CreateAsync(query, pageNumber, pageSize);
         }
 
         public async Task<Cluster?> GetByIdAsync(int id)
