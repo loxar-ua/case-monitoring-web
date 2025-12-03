@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShkandalData.Repositories
+namespace ShkandalInfrastructure.Repositories
 {
     public interface IUserRepository
     {
-        public Task<User?> GetUserByUsername(string username);
+        public Task<User?> GetUserByUsernameAsync(string username);
     }
 }

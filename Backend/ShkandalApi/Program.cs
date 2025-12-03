@@ -1,7 +1,6 @@
 using EFCore.NamingConventions;
 using Microsoft.EntityFrameworkCore;
 using ShkandalData.Models;
-using ShkandalData.Repositories;
 using ShkandalInfrastructure;
 using ShkandalInfrastructure.Repositories;
 
@@ -11,8 +10,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ShkandalDbContext>(options =>
     options.UseNpgsql(
-        builder.Configuration.GetConnectionString("ShkandalConnection"),
-        o => o.UseVector()).UseCamelCaseNamingConvention());
+        builder.Configuration.GetConnectionString("ShkandalConnection"))
+        .UseCamelCaseNamingConvention());
 
 builder.Services.AddScoped<IClusterRepository, ClusterRepository>();
 builder.Services.AddScoped<IAdminArticlesRepository, AdminArticlesRepository>();

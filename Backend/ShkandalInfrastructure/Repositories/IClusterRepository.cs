@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShkandalData.Repositories
+namespace ShkandalInfrastructure.Repositories
 {
     public interface IClusterRepository 
     {

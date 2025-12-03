@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShkandalData.Common;
 using ShkandalData.Models;
-using ShkandalData.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +20,10 @@ namespace ShkandalInfrastructure.Repositories
         }
         public async Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int pageNumber, int pageSize)
         {
-            var query = _dbSet
-               .AsNoTracking()
-               .OrderByDescending(c => c.ViewCounter)
-               .AsQueryable();
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                query = query.Where(c => c.Name.Contains(searchTerm));
-            }
+            var baseQuery = _dbSet.AsNoTracking();
+            
+            var query = SearchExtensions.ApplySearch(baseQuery, searchTerm);
+
             return await PagedList<Cluster>.CreateAsync(query, pageNumber, pageSize);
         }
 

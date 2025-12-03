@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShkandalData.Repositories
+namespace ShkandalInfrastructure.Repositories
 {
     public interface IAdminArticlesRepository
     {
-        public Task<PagedList<Article>> GetAllArticlesNotRelevant(int pageNumber, int pageSize);
-        public Task<Article?> GetArticleById(int id);
-        public Task UpdateAsync(Article article);
+        public Task<PagedList<Article>> GetAllArticlesNotCheckedAsync(string? searchTerm, int pageNumber, int pageSize);
+        public Task<Article?> GetArticleByIdAsync(int id);
+        public Task<Article> UpdateAsync(Article article);
         public Task<bool> ClusterExistsAsync(int clusterId);
     }
 }
