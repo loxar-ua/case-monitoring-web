@@ -20,7 +20,7 @@ namespace ShkandalData.Common
             if (searchTerm.Length < Constants.TrigramThresholdLength)
             {
                 return query
-                    .Where(c => EF.Functions.ILike(c.Name, $"{searchTerm}%"))
+                    .Where(c => EF.Functions.ILike(c.Name, $"%{searchTerm}%"))
                     .OrderByDescending(c => c.ViewCounter);
             }
             return query
@@ -39,7 +39,7 @@ namespace ShkandalData.Common
             if (searchTerm.Length < Constants.TrigramThresholdLength)
             {
                 return query
-                    .Where(a => EF.Functions.ILike(a.Title, $"{searchTerm}%"))
+                    .Where(a => EF.Functions.ILike(a.Title, $"%{searchTerm}%"))
                     .OrderByDescending(a => a.PublishedAt);
             }
 
