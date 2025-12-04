@@ -9,11 +9,11 @@ namespace ShkandalServices
 {
     public interface IAdminArticleService
     {
-        public Task<PagedList<ArticleAdminReadDto>> GetAllArticlesNotRelevant(int pageNumber, int pageSize);
+        public Task<PagedList<ArticleAdminReadDto>> GetAllArticlesNotCheckedAsync(int pageNumber, int pageSize);
 
-        public Task<ArticleAdminReadDto?> GetArticleById(int id);
+        public Task<ArticleAdminReadDto?> GetArticleByIdAsync(int id);
 
-        public Task<ArticleAdminUpdateDto?> ArticleUpdate(int id, ArticleAdminUpdateRequest update);
+        public Task<ArticleAdminUpdateDto?> UpdateAsync(int id, ArticleAdminUpdateRequest update);
   
     }
 }

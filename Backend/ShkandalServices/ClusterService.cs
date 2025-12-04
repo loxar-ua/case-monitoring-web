@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShkandalServices
 {
-    public class ClusterService: IClusterService
+    public class ClusterService : IClusterService
     {
 
         private readonly IClusterRepository _repository;
@@ -21,7 +21,7 @@ namespace ShkandalServices
             _mapper = mapper;
         }
 
-        public async Task<PagedList<ClusterReadDto>> GetAllClustersAsync(string? name, int pageNumber, int pageSize)
+        public async Task<PagedList<ClusterReadDto>> GetAllAsync(string? name, int pageNumber, int pageSize)
         {
             var clusters = await _repository.GetAllAsync(name, pageNumber, pageSize);
 
@@ -31,7 +31,7 @@ namespace ShkandalServices
             return result;
         }
 
-        public async Task<ClusterDetailedReadDto?> GetClusterById(int id)
+        public async Task<ClusterDetailedReadDto?> GetByIdAsync(int id)
         {
             var cluster = await _repository.GetByIdAsync(id);
 

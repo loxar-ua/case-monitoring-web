@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ShkandalServices
 {
-    public class AuthService:IAuthService
+    public class AuthService : IAuthService
     {
         private readonly IUserRepository _repository;
         private readonly IConfiguration _config;
@@ -26,14 +26,14 @@ namespace ShkandalServices
 
         public async Task<string> LoginAdmin(string username, string password)
         {
-            var user = await _repository.GetUserByUsername(username);
-            if(user == null || user.Role != User.UserRole.Admin)
+            var user = await _repository.GetUserByUsernameAsync(username);
+            if (user == null || user.Role != User.UserRole.Admin)
             {
                 throw new UnauthorizedAccessException("Admin not found");
             }
 
             var verify = _hasher.VerifyHashedPassword(user, user.PasswordHash, password);
-            if(verify == PasswordVerificationResult.Failed)
+            if (verify == PasswordVerificationResult.Failed)
             {
                 throw new UnauthorizedAccessException("Invalid Password");
             }
@@ -59,6 +59,6 @@ namespace ShkandalServices
 
             return tokenHandler.WriteToken(token);
         }
-        }
     }
+}
 

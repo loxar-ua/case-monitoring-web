@@ -22,7 +22,7 @@ namespace shkandalData
             CreateMap<Cluster, ClusterReadDto>();
             CreateMap<Cluster, ClusterDetailedReadDto>();
             CreateMap<Cluster, ClusterUpdateDto>();
-            CreateMap<Cluster, ClusterAdminReadDto>();
+            CreateMap<Cluster, ClusterAdminDetailedReadDto>();
             CreateMap<Cluster, ClusterAdminUpdateDto>();
             CreateMap<ClusterAdminUpdateRequest, Cluster>().
                 ForAllMembers(opt => opt.Condition(

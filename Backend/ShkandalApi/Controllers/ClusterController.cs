@@ -6,7 +6,6 @@ using ShkandalServices;
 namespace shkandal_api.Controllers
 {
     [ApiController]
-    //[Authorize]
     [Route("api/[controller]")]
     public class ClusterController: ControllerBase
     {
@@ -18,17 +17,17 @@ namespace shkandal_api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<ClusterReadDto>>> GetAllClustersAsync([FromQuery] string name, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PagedList<ClusterReadDto>>> GetAllAsync([FromQuery] string name, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var result = await _service.GetAllClustersAsync(name, pageNumber, pageSize);
+            var result = await _service.GetAllAsync(name, pageNumber, pageSize);
 
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClusterDetailedReadDto>> GetClusterById(int id)
+        public async Task<ActionResult<ClusterDetailedReadDto>> GetByIdAsync(int id)
         {
-            var result = await _service.GetClusterById(id);
+            var result = await _service.GetByIdAsync(id);
 
             if(result == null)
             {

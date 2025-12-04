@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using shkandalData.DTOs.ArticleDtos;
+using shkandalData.Models;
 
 namespace shkandalData.DTOs.ClusterDtos
 {
-    public class ClusterAdminReadDto
+    public class ClusterAdminDetailedReadDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public bool IsActive { get; set; }
         public string? Content { get; set; }
         public string? FeaturedImageURL { get; set; }
         public DateTime? LastUpdatedAt { get; set; }
+        public ICollection<ArticleReadDto> Articles { get; set; } = new List<ArticleReadDto>();
     }
 }

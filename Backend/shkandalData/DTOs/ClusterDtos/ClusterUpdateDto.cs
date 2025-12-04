@@ -5,6 +5,5 @@ namespace shkandalData.DTOs.ClusterDtos
     {
         public int Id { get; set; }
         public int ViewCounter { get; set; }
-
     }
 }

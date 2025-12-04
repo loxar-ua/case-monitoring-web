@@ -9,8 +9,8 @@ namespace ShkandalServices
 {
     public interface IClusterService
     {
-        public Task<PagedList<ClusterReadDto>> GetAllClustersAsync(string? name, int pageNumber, int pageSize);
-        public Task<ClusterDetailedReadDto?> GetClusterById(int id);
+        public Task<PagedList<ClusterReadDto>> GetAllAsync(string? name, int pageNumber, int pageSize);
+        public Task<ClusterDetailedReadDto?> GetByIdAsync(int id);
         public Task<ClusterUpdateDto?> IncrementViewCounterAsync(int id);
     }
 }

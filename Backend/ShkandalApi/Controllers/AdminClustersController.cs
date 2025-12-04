@@ -17,8 +17,16 @@ namespace shkandal_api.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<PagedList<ClusterAdminReadDto>>> GetAllClustersAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            var result = await _service.GetAllClustersAsync(pageNumber, pageSize);
+
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClusterAdminReadDto>> GetClusterByIdAsync(int id)
+        public async Task<ActionResult<ClusterAdminDetailedReadDto>> GetClusterByIdAsync(int id)
         {
             var result = await _service.GetClusterByIdAsync(id);
 
@@ -32,15 +40,15 @@ namespace shkandal_api.Controllers
 
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult<ClusterAdminUpdateDto>> ClusterUpdate(int id,
+        public async Task<ActionResult<ClusterAdminUpdateDto>> UpdateAsync(int id,
             [FromBody] ClusterAdminUpdateRequest update)
         {
 
-            var result = await _service.ClusterUpdate(id, update);
+            var result = await _service.UpdateAsync(id, update);
             if (result == null)
                 return NotFound();
 
-            return result;
+            return Ok(result);
         }
     }
 }
