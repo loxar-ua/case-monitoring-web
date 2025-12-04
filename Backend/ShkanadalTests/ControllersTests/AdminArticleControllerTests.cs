@@ -2,6 +2,7 @@
 using Moq;
 using shkandal_api.Controllers;
 using shkandalData.DTOs.ArticleDtos;
+using ShkandalData.Common;
 using ShkandalServices;
 using System;
 using System.Collections.Generic;
@@ -30,16 +31,16 @@ namespace ShkanadalTests.ControllersTests
             var articles = new List<ArticleAdminReadDto> { };
             var pagedList = PagedList<ArticleAdminReadDto>.Create(articles.AsQueryable(), 1, 10);
 
-            _serviceMock.Setup(s => s.GetAllArticlesNotCheckedAsync(It.IsAny<int>(), It.IsAny<int>()))
+            _serviceMock.Setup(s => s.GetAllArticlesNotCheckedAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                         .ReturnsAsync(pagedList);
 
             //Act
-            var result = await _controller.GetAllArticlesNotCheckedAsync(1, 10);
+            var result = await _controller.GetAllArticlesNotCheckedAsync(null, 1, 10);
 
             //Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var returnedList = Assert.IsType<PagedList<ArticleAdminReadDto>>(okResult.Value);
-            Assert.Equal(0, returnedList.Count);
+            Assert.Equal(0, returnedList.TotalCount);
         }
 
         [Fact]
@@ -69,21 +70,21 @@ namespace ShkanadalTests.ControllersTests
 
             var pagedList = PagedList<ArticleAdminReadDto>.Create(articles.AsQueryable(), 1, 10);
 
-            _serviceMock.Setup(s => s.GetAllArticlesNotCheckedAsync(It.IsAny<int>(), It.IsAny<int>()))
+            _serviceMock.Setup(s => s.GetAllArticlesNotCheckedAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                         .ReturnsAsync(pagedList);
 
             //Act
-            var result = await _controller.GetAllArticlesNotCheckedAsync(1, 10);
+            var result = await _controller.GetAllArticlesNotCheckedAsync(null, 1, 10);
 
             //Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var returnedList = Assert.IsType<PagedList<ArticleAdminReadDto>>(okResult.Value);
 
-            Assert.Equal(2, returnedList.Count);
-            Assert.Equal("Title", returnedList[0].Title);
-            Assert.Equal("Title1", returnedList[1].Title);
-            Assert.Equal("Content", returnedList[0].Content);
-            Assert.Equal("Content1", returnedList[1].Content);
+            Assert.Equal(2, returnedList.TotalCount);
+            Assert.Equal("Title", returnedList.Items[0].Title);
+            Assert.Equal("Title1", returnedList.Items[1].Title);
+            Assert.Equal("Content", returnedList.Items[0].Content);
+            Assert.Equal("Content1", returnedList.Items[1].Content);
         }
 
         //GetArticleByIdAsync
@@ -138,7 +139,7 @@ namespace ShkanadalTests.ControllersTests
             //Arrange
             var request = new ArticleAdminUpdateRequest
             {
-                IsRelevant = true,
+                IsChecked = true,
                 ClusterId = 5,
                 DetachCluster = false
             };
@@ -159,13 +160,13 @@ namespace ShkanadalTests.ControllersTests
             //Arrange
             var dto = new ArticleAdminUpdateDto
             {
-                IsRelevant = false,
+                IsChecked = false,
                 ClusterId = 10
             };
 
             var request = new ArticleAdminUpdateRequest
             {
-                IsRelevant = false,
+                IsChecked = false,
                 ClusterId = 10,
                 DetachCluster = false
             };
@@ -180,7 +181,7 @@ namespace ShkanadalTests.ControllersTests
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var returned = Assert.IsType<ArticleAdminUpdateDto>(okResult.Value);
 
-            Assert.False(returned.IsRelevant);
+            Assert.False(returned.IsChecked);
             Assert.Equal(10, returned.ClusterId);
             _serviceMock.Verify(s => s.UpdateAsync(7, request), Times.Once);
         }

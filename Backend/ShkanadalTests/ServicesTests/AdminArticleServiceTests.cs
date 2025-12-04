@@ -3,7 +3,9 @@ using Moq;
 using shkandalData.DTOs.ArticleDtos;
 using shkandalData.DTOs.ClusterDtos;
 using shkandalData.DTOs.MediaDtos;
-using shkandalData.Models;
+using ShkandalData.Common;
+using ShkandalData.Models;
+using ShkandalInfrastructure.Repositories;
 using ShkandalServices;
 using System.Diagnostics.Metrics;
 
@@ -36,7 +38,8 @@ namespace ShkanadalTests.ServicesTests
             Content = "Some content",
             Status = "Active",
             PublishedAt = new DateTime(2025, 12, 10),
-            IsRelevant = true
+            IsRelevant = true,
+            IsChecked = true
         };
 
         //GetArticleByIdAsync
@@ -115,11 +118,12 @@ namespace ShkanadalTests.ServicesTests
             Content = "Some content1",
             Status = "Not Active",
             PublishedAt = new DateTime(2025, 8, 10),
-            IsRelevant = false
+            IsRelevant = false,
+            IsChecked = false,
         }
             };
 
-            var pagedClusters = await PagedList<Article>.CreateAsync(articles.AsQueryable(), 1, 10);
+            var pagedClusters =  PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllArticlesNotCheckedAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                            .ReturnsAsync(pagedClusters);
@@ -174,7 +178,7 @@ namespace ShkanadalTests.ServicesTests
         {
             //Arrange
             var articles = new List<Article>();
-            var emptyPaged = await PagedList<Article>.CreateAsync(articles.AsQueryable(), 1, 10);
+            var emptyPaged =  PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllArticlesNotCheckedAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                            .ReturnsAsync(emptyPaged);
@@ -220,14 +224,14 @@ namespace ShkanadalTests.ServicesTests
             _mapperMock.Setup(m => m.Map<ArticleAdminUpdateDto>(It.IsAny<Article>()))
                        .Returns((Article a) => new ArticleAdminUpdateDto
                        {
-                           IsRelevant = a.IsRelevant,
+                           IsChecked = a.IsChecked,
                            ClusterId = a.ClusterId
                        });
 
 
             var request = new ArticleAdminUpdateRequest
             {
-                IsRelevant = false,
+                IsChecked = false,
                 ClusterId = 10,
                 DetachCluster = false
             };
@@ -237,7 +241,7 @@ namespace ShkanadalTests.ServicesTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.False(result.IsRelevant);
+            Assert.False(result.IsChecked);
             Assert.Equal(10, result.ClusterId);
 
             _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Article>()), Times.Once);
@@ -256,13 +260,13 @@ namespace ShkanadalTests.ServicesTests
             _mapperMock.Setup(m => m.Map<ArticleAdminUpdateDto>(It.IsAny<Article>()))
                        .Returns((Article a) => new ArticleAdminUpdateDto
                        {
-                           IsRelevant = a.IsRelevant,
+                           IsChecked = a.IsChecked,
                            ClusterId = a.ClusterId
                        });
 
             var request = new ArticleAdminUpdateRequest
             {
-                IsRelevant = null,
+                IsChecked = null,
                 ClusterId = null,
                 DetachCluster = false
             };
@@ -272,7 +276,7 @@ namespace ShkanadalTests.ServicesTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.True(result.IsRelevant);
+            Assert.True(result.IsChecked);
             Assert.Equal(5, result.ClusterId);
 
             _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Article>()), Times.Once);
@@ -291,13 +295,13 @@ namespace ShkanadalTests.ServicesTests
             _mapperMock.Setup(m => m.Map<ArticleAdminUpdateDto>(It.IsAny<Article>()))
                        .Returns((Article a) => new ArticleAdminUpdateDto
                        {
-                           IsRelevant = a.IsRelevant,
+                           IsChecked = a.IsChecked,
                            ClusterId = a.ClusterId
                        });
 
             var request = new ArticleAdminUpdateRequest
             {
-                IsRelevant = null,
+                IsChecked = null,
                 ClusterId = null,
                 DetachCluster = true
             };
@@ -307,7 +311,7 @@ namespace ShkanadalTests.ServicesTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.True(result.IsRelevant);
+            Assert.True(result.IsChecked);
             Assert.Null(result.ClusterId);
 
             _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Article>()), Times.Once);

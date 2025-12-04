@@ -2,8 +2,9 @@
 using Moq;
 using shkandalData.DTOs.ArticleDtos;
 using shkandalData.DTOs.ClusterDtos;
-using shkandalData.Models;
-using ShkandalData.Repositories;
+using ShkandalData.Common;
+using ShkandalData.Models;
+using ShkandalInfrastructure.Repositories;
 using ShkandalServices;
 using System;
 using System.Collections.Generic;
@@ -203,7 +204,7 @@ namespace ShkanadalTests.ServicesTests
                 }
             };
 
-            var pagedClusters = await PagedList<Cluster>.CreateAsync(clusters.AsQueryable(), 1, 10);
+            var pagedClusters = PagedList<Cluster>.Create(clusters.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllClustersAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                            .ReturnsAsync(pagedClusters);
@@ -244,7 +245,7 @@ namespace ShkanadalTests.ServicesTests
         {
             //Arrange
             var clusters = new List<Cluster>();
-            var emptyPaged = await PagedList<Cluster>.CreateAsync(clusters.AsQueryable(), 1, 10);
+            var emptyPaged =  PagedList<Cluster>.Create(clusters.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllClustersAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                            .ReturnsAsync(emptyPaged);

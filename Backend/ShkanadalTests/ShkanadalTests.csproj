@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShkandalApi\shkandal-api.csproj" />
-    <ProjectReference Include="..\ShkandalData\shkandalData.csproj" />
     <ProjectReference Include="..\ShkandalInfrastructure\ShkandalInfrastructure.csproj" />
     <ProjectReference Include="..\ShkandalServices\ShkandalServices.csproj" />
   </ItemGroup>

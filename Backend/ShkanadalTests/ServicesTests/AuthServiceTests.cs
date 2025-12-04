@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using shkandalData.Models;
-using ShkandalData.Repositories;
+using ShkandalData.Models;
+using ShkandalInfrastructure.Repositories;
 using ShkandalServices;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -31,7 +31,7 @@ namespace ShkanadalTests.ServicesTests
         public async Task LoginAdmin_UserNotFound_ThrowsUnauthorized()
         {
             //Arrange
-            _repositoryMock.Setup(r => r.GetUserByUsername("Username"))
+            _repositoryMock.Setup(r => r.GetUserByUsernameAsync("Username"))
                 .ReturnsAsync((User?)null);
 
             //Act and Assert
@@ -51,7 +51,7 @@ namespace ShkanadalTests.ServicesTests
                 Role = User.UserRole.Visitor
             };
 
-            _repositoryMock.Setup(r => r.GetUserByUsername("Username"))
+            _repositoryMock.Setup(r => r.GetUserByUsernameAsync("Username"))
                 .ReturnsAsync(user);
 
             //Act and Assert

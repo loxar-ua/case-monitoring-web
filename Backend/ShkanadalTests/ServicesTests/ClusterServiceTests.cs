@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Moq;
-using ShkandalData.Repositories;
 using ShkandalServices;
-using shkandalData.Models;
 using shkandalData.DTOs.ClusterDtos;
 using shkandalData.DTOs.ArticleDtos;
+using ShkandalData.Models;
+using ShkandalInfrastructure.Repositories;
+using ShkandalData.Common;
 
 namespace ShkanadalTests.ServicesTests
 {
@@ -146,7 +147,7 @@ namespace ShkanadalTests.ServicesTests
                   }
             };
 
-            var pagedClusters = await PagedList<Cluster>.CreateAsync(clusters.AsQueryable(), 1, 10);
+            var pagedClusters = PagedList<Cluster>.Create(clusters.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                   .ReturnsAsync(pagedClusters);
@@ -185,7 +186,7 @@ namespace ShkanadalTests.ServicesTests
         {
             //Arrange
             var clusters = new List<Cluster> { };
-            var emptyPaged = await PagedList<Cluster>.CreateAsync(clusters.AsQueryable(), 1, 10);
+            var emptyPaged =  PagedList<Cluster>.Create(clusters.AsQueryable(), 1, 10);
             _repositoryMock.Setup(r => r.GetAllAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(emptyPaged);
 
@@ -193,7 +194,7 @@ namespace ShkanadalTests.ServicesTests
             var result = await _service.GetAllAsync(null, 1, 10);
 
             //Assert
-            Assert.Empty(result);
+            Assert.Equal(0, result.TotalCount);
         }
     }
 }

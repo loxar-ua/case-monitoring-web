@@ -3,6 +3,7 @@ using Moq;
 using shkandal_api.Controllers;
 using shkandalData.DTOs.ArticleDtos;
 using shkandalData.DTOs.ClusterDtos;
+using ShkandalData.Common;
 using ShkandalServices;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace ShkanadalTests.ControllersTests
             //Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var returnedList = Assert.IsType<PagedList<ClusterAdminReadDto>>(okResult.Value);
-            Assert.Equal(0, returnedList.Count);
+            Assert.Equal(0, returnedList.TotalCount);
         }
 
         [Fact]
@@ -63,13 +64,13 @@ namespace ShkanadalTests.ControllersTests
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var returnedList = Assert.IsType<PagedList<ClusterAdminReadDto>>(okResult.Value);
 
-            Assert.Equal(2, returnedList.Count);
-            Assert.Equal("Name", returnedList[0].Name);
-            Assert.Equal("Name1", returnedList[1].Name);
-            Assert.True(returnedList[0].IsActive);
-            Assert.False(returnedList[1].IsActive);
-            Assert.Equal("Content", returnedList[0].Content);
-            Assert.Equal("Content1", returnedList[1].Content);
+            Assert.Equal(2, returnedList.TotalCount);
+            Assert.Equal("Name", returnedList.Items[0].Name);
+            Assert.Equal("Name1", returnedList.Items[1].Name);
+            Assert.True(returnedList.Items[0].IsActive);
+            Assert.False(returnedList.Items[1].IsActive);
+            Assert.Equal("Content", returnedList.Items[0].Content);
+            Assert.Equal("Content1", returnedList.Items[1].Content);
         }
 
         //GetClusterById
