@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace shkandalData.Models
+namespace ShkandalData.Models
 {
-    public class Cluster
+    public class Media
     {
         public int Id { get; set; }
         public required string Name { get; set; }
+        public required string SitemapIndexURL { get; set; }
         public bool IsActive { get; set; }
-        public required int ViewCounter { get; set; }
 
         public ICollection<Article> Articles { get; set; } = new List<Article>();
     }

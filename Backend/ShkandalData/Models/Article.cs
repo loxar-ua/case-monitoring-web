@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace shkandalData.Models
+namespace ShkandalData.Models
 {
     public class Article
     {
@@ -22,6 +22,6 @@ namespace shkandalData.Models
         public string? Status { get; set; }
         public DateTime? PublishedAt {  get; set; }
         public required bool IsRelevant { get; set; }
-        public Pgvector.Vector? Embedding { get; set; }
+        public required bool IsChecked { get; set; }
     }
 }

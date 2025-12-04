@@ -1,5 +1,4 @@
 ﻿using shkandalData.DTOs.MediaDtos;
-using shkandalData.Models;
 
 namespace shkandalData.DTOs.ArticleDtos
 {
@@ -13,5 +12,7 @@ namespace shkandalData.DTOs.ArticleDtos
         public string Author { get; set; }
         public string Content { get; set; }
         public DateTime PublishedAt { get; set; }
+        public bool IsChecked { get; set; }
+
     }
 }

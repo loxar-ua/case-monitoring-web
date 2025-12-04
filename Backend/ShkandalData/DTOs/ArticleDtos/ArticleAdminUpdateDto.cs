@@ -5,7 +5,7 @@ namespace shkandalData.DTOs.ArticleDtos
 {
     public class ArticleAdminUpdateDto
     {
-        public bool IsRelevant { get; set; }
+        public bool? IsChecked { get; set; }
         public int? ClusterId { get; set; }
     }
 }

@@ -15,5 +15,6 @@ namespace shkandalData.DTOs.ArticleDtos
         public DateTime PublishedAt { get; set; }
         public bool IsRelevant { get; set; }
         public ClusterReadDto Cluster { get; set; }
+        public bool IsChecked { get; set; }
     }
 }

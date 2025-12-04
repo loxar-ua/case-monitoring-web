@@ -2,7 +2,7 @@
 using shkandalData.DTOs.ArticleDtos;
 using shkandalData.DTOs.ClusterDtos;
 using shkandalData.DTOs.MediaDtos;
-using shkandalData.Models;
+using ShkandalData.Models;
 
 namespace shkandalData
 {
