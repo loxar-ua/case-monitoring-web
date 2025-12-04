@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using shkandalData.Models;
+using ShkandalData.Models;
 using System.Reflection.Emit;
 namespace ShkandalInfrastructure
 {
@@ -24,10 +24,11 @@ namespace ShkandalInfrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasPostgresExtension("pg_trgm");
 
             modelBuilder.Entity<Article>(entity =>
             {
-                entity.ToTable("article"); 
+                entity.ToTable("article");
 
                 entity.HasKey(a => a.Id);
                 entity.Property(a => a.MediaId).HasColumnName("media_id");
@@ -35,6 +36,9 @@ namespace ShkandalInfrastructure
                 entity.Property(a => a.FeaturedImageURL).HasColumnName("featured_image_url");
                 entity.Property(a => a.IsRelevant).HasColumnName("is_relevant");
                 entity.Property(a => a.PublishedAt).HasColumnName("published_at");
+                entity.Property(a => a.IsChecked)
+                      .HasColumnName("is_checked")
+                      .HasDefaultValue(false);
 
                 entity.HasOne(a => a.Media)
                       .WithMany(m => m.Articles)
@@ -45,8 +49,6 @@ namespace ShkandalInfrastructure
                       .WithMany(c => c.Articles)
                       .HasForeignKey(a => a.ClusterId)
                       .OnDelete(DeleteBehavior.SetNull);
-
-                entity.Property(a => a.Embedding).HasColumnType("vector(1536)");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -75,8 +77,6 @@ namespace ShkandalInfrastructure
                 entity.Property(m => m.IsActive).HasColumnName("is_active");
                 entity.Property(m => m.SitemapIndexURL).HasColumnName("sitemap_index_url");
             });
-
-            modelBuilder.HasPostgresExtension("vector");
         }
     }
 }
