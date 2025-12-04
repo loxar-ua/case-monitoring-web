@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using shkandalData.DTOs.ClusterDtos;
+using ShkandalData.Common;
 using ShkandalServices;
 
 namespace shkandal_api.Controllers
@@ -18,9 +19,9 @@ namespace shkandal_api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<ClusterAdminReadDto>>> GetAllClustersAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PagedList<ClusterAdminReadDto>>> GetAllClustersAsync([FromQuery] string name, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var result = await _service.GetAllClustersAsync(pageNumber, pageSize);
+            var result = await _service.GetAllClustersAsync(name, pageNumber, pageSize);
 
             return Ok(result);
         }

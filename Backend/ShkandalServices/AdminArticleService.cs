@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using shkandalData.DTOs.ArticleDtos;
-using ShkandalData.Repositories;
+using ShkandalData.Common;
+using ShkandalInfrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShkandalServices
 {
-    public class AdminArticleService
+    public class AdminArticleService: IAdminArticleService
     {
 
         private readonly IAdminArticlesRepository _repository;
@@ -22,9 +23,9 @@ namespace ShkandalServices
             _mapper = mapper;
         }
 
-        public async Task<PagedList<ArticleAdminReadDto>> GetAllArticlesNotCheckedAsync(int pageNumber, int pageSize)
+        public async Task<PagedList<ArticleAdminReadDto>> GetAllArticlesNotCheckedAsync(string? name, int pageNumber, int pageSize)
         {
-            var articles = await _repository.GetAllArticlesNotCheckedAsync(pageNumber, pageSize);
+            var articles = await _repository.GetAllArticlesNotCheckedAsync(name, pageNumber, pageSize);
 
             var result = articles.Select(article =>
                            _mapper.Map<ArticleAdminReadDto>(article));
@@ -52,8 +53,8 @@ namespace ShkandalServices
             if (update.DetachCluster)
                 article.ClusterId = null;
 
-            if (update.IsRelevant.HasValue)
-                article.IsRelevant = update.IsRelevant.Value;
+            if (update.IsChecked.HasValue)
+                article.IsChecked = update.IsChecked.Value;
 
             if (update.ClusterId.HasValue)
             {

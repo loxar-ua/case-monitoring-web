@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using shkandalData.DTOs.ArticleDtos;
 using shkandalData.DTOs.ClusterDtos;
+using ShkandalData.Common;
+using ShkandalInfrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +24,9 @@ namespace ShkandalServices
             _mapper = mapper;
         }
 
-        public async Task<PagedList<ClusterAdminReadDto>> GetAllClustersAsync(int pageNumber, int pageSize)
+        public async Task<PagedList<ClusterAdminReadDto>> GetAllClustersAsync(string? name, int pageNumber, int pageSize)
         {
-            var clusters = await _repository.GetAllClustersAsync(pageNumber, pageSize);
+            var clusters = await _repository.GetAllClustersAsync(name, pageNumber, pageSize);
 
             var result = clusters.Select(cluster =>
                            _mapper.Map<ClusterAdminReadDto>(cluster));

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using shkandalData.DTOs.UserDtos;
-using shkandalData.Models;
 using ShkandalServices;
 
 namespace shkandal_api.Controllers

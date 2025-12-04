@@ -1,5 +1,5 @@
 ﻿using shkandalData.DTOs.ClusterDtos;
-using shkandalData.Models;
+using ShkandalData.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace ShkandalServices
 {
     public interface IAdminClusterService
     {
-        public Task<PagedList<ClusterAdminReadDto>> GetAllClustersAsync(int pageNumber, int pageSize);
+        public Task<PagedList<ClusterAdminReadDto>> GetAllClustersAsync(string? name, int pageNumber, int pageSize);
 
         public Task<ClusterAdminDetailedReadDto?> GetClusterByIdAsync(int id);
 

@@ -1,16 +1,23 @@
-using Microsoft.EntityFrameworkCore;
 using EFCore.NamingConventions;
-using ShkandalInfrastructure;
-using shkandalData.Models;
-using shkandal_api;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using shkandalData;
+using ShkandalData.Models;
+using ShkandalInfrastructure;
+using ShkandalInfrastructure.Repositories;
+using ShkandalServices;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+
+builder.Services.AddDbContext<ShkandalDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("ShkandalConnection"))
+        .UseCamelCaseNamingConvention());
+builder.Services.AddControllers();
 var jwtKey = builder.Configuration["Jwt:Key"];
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -25,17 +32,25 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
+builder.Services.AddDbContext<ShkandalDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("ShkandalConnection"))
+        .UseCamelCaseNamingConvention());
+
+builder.Services.AddScoped<IClusterRepository, ClusterRepository>();
+builder.Services.AddScoped<IAdminArticlesRepository, AdminArticlesRepository>();
+builder.Services.AddScoped<IAdminClustersRepository, AdminClustersRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IClusterService, ClusterService>();
+builder.Services.AddScoped<IAdminArticleService, AdminArticleService>();
+builder.Services.AddScoped<IAdminClusterService, AdminClusterService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAuthorization();
 
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
-builder.Services.AddControllers();
-
-builder.Services.AddDbContext<ShkandalDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("ShkandalConnection"),
-        o => o.UseVector()).UseCamelCaseNamingConvention());
 
 var app = builder.Build();
 

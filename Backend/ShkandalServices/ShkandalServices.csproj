@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShkandalData\shkandalData.csproj" />
+    <ProjectReference Include="..\ShkandalInfrastructure\ShkandalInfrastructure.csproj" />
   </ItemGroup>
 
 </Project>
