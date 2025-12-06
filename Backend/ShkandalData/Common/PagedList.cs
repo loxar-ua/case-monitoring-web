@@ -53,7 +53,34 @@ namespace ShkandalData.Common
 
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
-        
+
+        public static PagedList<T> Create(IQueryable<T> source, int pageNumber, int pageSize)
+        {
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            if (pageSize < 1)
+            {
+                pageSize = DefaultPageSize;
+            }
+            else if (pageSize > MaxPageSize)
+            {
+                pageSize = MaxPageSize;
+            }
+
+            var count = source
+                .Count();
+
+            var items = source
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PagedList<T>(items, count, pageNumber, pageSize);
+        }
+
         public PagedList<U> Select<U>(Func<T, U> selector)
         {
             var mappedItems = Items.Select(selector).ToList();

@@ -49,6 +49,7 @@ namespace ShkandalInfrastructure
                       .WithMany(c => c.Articles)
                       .HasForeignKey(a => a.ClusterId)
                       .OnDelete(DeleteBehavior.SetNull);
+
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -77,6 +78,7 @@ namespace ShkandalInfrastructure
                 entity.Property(m => m.IsActive).HasColumnName("is_active");
                 entity.Property(m => m.SitemapIndexURL).HasColumnName("sitemap_index_url");
             });
+
         }
     }
 }

@@ -24,7 +24,7 @@ namespace ShkandalInfrastructure.Repositories
             
             var query = SearchExtensions.ApplySearch(baseQuery, searchTerm);
 
-            return await PagedList<Cluster>.CreateAsync(query, pageNumber, pageSize);
+            return PagedList<Cluster>.Create(query, pageNumber, pageSize);
         }
 
         public async Task<Cluster?> GetByIdAsync(int id)
