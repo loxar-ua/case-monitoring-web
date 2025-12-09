@@ -1,0 +1,75 @@
+.app-header {
+  width: 100%;
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 3px 10px var(--shadow);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 69px;
+  padding-inline: 2%;
+}
+
+.header-logo {
+  height: 25px;
+  width: auto;
+}
+
+.search-form {
+  width: 45%;
+}
+
+.search-input {
+  width: 100%;
+  height: 36px;
+  padding: 6px 14px;
+  border-radius: 18px;
+  border: 3px solid var(--muted);
+  font-size: 14px;
+  color: var(--text);
+  background: transparent;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 2px var(--focus-shadow);
+  border-color: var(--focus-border);
+}
+
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid var(--text);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--muted);
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus {
+  box-shadow: 0 0 0 2px var(--focus-shadow);
+  border-color: var(--focus-border);
+}
+
+.theme-icon {
+  color: var(--text);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}

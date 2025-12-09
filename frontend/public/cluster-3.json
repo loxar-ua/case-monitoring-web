@@ -1,0 +1,20 @@
+  {
+    "id": 3,
+    "name": "Україна перемогла у футбольному матчі",
+    "content": "Національна збірна здобула перемогу з рахунком 2:1...",
+    "featuredImageURL": "/images/news1.png",
+    "lastUpdatedAt": "18.11.2025 20:15",
+    "viewCounter": 2450,
+    "articles": [
+      {
+        "id": "a4",
+        "title": "Головні моменти матчу",
+        "content": "Огляд ключових епізодів гри...",
+        "publishedAt": "2025-11-18T20:15:00Z",
+        "author": "Спорт UA",
+        "media": { "Name": "Football News" },
+        "featuredImageURL": "/images/news2.png",
+        "link": "/articles/ukraine-match-highlights"
+      }
+    ]
+  }
