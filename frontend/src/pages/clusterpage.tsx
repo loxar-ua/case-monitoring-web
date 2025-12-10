@@ -15,7 +15,7 @@ export default function ClusterPage() {
 
     const loadCluster = async () => {
       try {
-        // ✅ завантажуємо конкретний JSON-файл, наприклад cluster-1.json
+        //завантажуємо конкретний JSON-файл, наприклад cluster-1.json
         const res = await fetch(`/cluster-${id}.json`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
