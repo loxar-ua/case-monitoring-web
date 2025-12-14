@@ -19,7 +19,6 @@ namespace ShkandalData.Models
         public string? FeaturedImageURL { get; set; }
         public string? Author { get; set; }
         public string? Content { get; set; }
-        public string? Status { get; set; }
         public DateTime? PublishedAt {  get; set; }
         public required bool IsRelevant { get; set; }
         public required bool IsChecked { get; set; }

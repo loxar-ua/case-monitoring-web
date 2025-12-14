@@ -27,7 +27,7 @@ namespace ShkanadalTests.ServicesTests
         {
             Id = 7,
             Name = "Test Cluster",
-            IsActive = true,
+            IsRelevant = true,
             ViewCounter = 1,
             Content = "Some content",
             FeaturedImageURL = "FeaturedImageURL",
@@ -138,7 +138,7 @@ namespace ShkanadalTests.ServicesTests
                   {
                       Id = 9,
                       Name = "Test Cluster1",
-                      IsActive = false,
+                      IsRelevant = false,
                       ViewCounter = 60,
                       Content = "Some other content",
                       FeaturedImageURL = "FeaturedImageURL1",

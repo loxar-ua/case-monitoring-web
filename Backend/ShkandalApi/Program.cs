@@ -49,8 +49,10 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddAutoMapper(typeof(MapperProfile));
-
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<MapperProfile>();
+});
 
 var app = builder.Build();
 

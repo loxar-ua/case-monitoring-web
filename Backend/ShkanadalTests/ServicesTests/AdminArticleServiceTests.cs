@@ -36,7 +36,6 @@ namespace ShkanadalTests.ServicesTests
             FeaturedImageURL = "FeaturedImageURL",
             Author = "Author",
             Content = "Some content",
-            Status = "Active",
             PublishedAt = new DateTime(2025, 12, 10),
             IsRelevant = true,
             IsChecked = true
@@ -116,7 +115,6 @@ namespace ShkanadalTests.ServicesTests
             FeaturedImageURL = "FeaturedImageURL1",
             Author = "Author1",
             Content = "Some content1",
-            Status = "Not Active",
             PublishedAt = new DateTime(2025, 8, 10),
             IsRelevant = false,
             IsChecked = false,
