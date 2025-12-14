@@ -1,0 +1,38 @@
+.app-footer {
+  width: 100%;
+  margin-top: 20px;
+  background: var(--footer);
+  box-shadow: 0 -3px 10px var(--shadow);
+  padding: 20px 2%;
+  color: var(--bg);
+  position: static;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo {
+  height: 18px;
+  width: auto;
+}
+
+.footer-socials {
+  gap: 20px;
+  justify-content: center;
+}
+
+.footer-socials a {
+  color: var(--bg);
+  text-decoration: none;
+  font-size: 14px;
+  transition: opacity 150ms ease;
+  padding-left: 20px;
+}
+
+.footer-socials a:hover {
+  opacity: 0.7;
+}

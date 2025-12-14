@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "Unbounded-Light";
+  src: url("/fonts/Unbounded-Light.ttf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Unbounded-Regular";
+  src: url("/fonts/Unbounded-Regular.ttf") format("truetype");
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Unbounded-Light", sans-serif;
+}

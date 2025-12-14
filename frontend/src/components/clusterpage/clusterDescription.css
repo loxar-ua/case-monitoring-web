@@ -1,0 +1,47 @@
+.cluster-description {
+  padding: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+.cluster-description .cluster-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--title);
+}
+
+.cluster-views {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.cluster-description .cluster-image {
+  width: 96%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+.cluster-text-block {
+  margin-top: 24px;
+  position: relative;
+}
+
+.cluster-description-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.cluster-ai-footer {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+}

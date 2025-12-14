@@ -1,0 +1,20 @@
+    {
+    "id": 2,
+    "name": "React 19 у бета-версії",
+    "content": "Команда React представила нові хуки та покращення серверного рендерингу...",
+    "featuredImageURL": "/images/news2.png",
+    "lastUpdatedAt": "19.11.2025 15:00",
+    "viewCounter": 980,
+    "articles": [
+      {
+        "id": "a3",
+        "title": "React 19: що нового?",
+        "content": "Огляд нових хуків та оптимізацій...",
+        "publishedAt": "2025-11-19T15:00:00Z",
+        "author": "Марія Левченко",
+        "media": { "Name": "JS World" },
+        "featuredImageURL": "/images/news1.png",
+        "link": "/articles/react-19-beta"
+      }
+    ]
+  }

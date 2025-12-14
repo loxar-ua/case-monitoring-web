@@ -1,0 +1,25 @@
+:root {
+  --bg: #f8f8f8;
+  --footer: #958da5;
+  --title: #000;
+  --text: #958da5;
+  --muted: #958da5;
+  --accent: #eeeeee;
+  --shadow: rgba(200, 200, 200, 0.2);
+
+  --focus-shadow: rgba(149, 141, 165, 0.12);
+  --focus-border: rgba(165, 161, 141, 0.28);
+}
+
+html.dark {
+  --bg: #212121;
+  --footer: #57525f;
+  --title: #f8f8f8;
+  --text: #958da5;
+  --muted: #a9a9b0;
+  --accent: #292929;
+  --shadow: rgba(200, 200, 200, 0.2);
+
+  --focus-shadow: rgba(255, 255, 255, 0.1);
+  --focus-border: rgba(255, 255, 255, 0.3);
+}
