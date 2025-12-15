@@ -1,15 +1,10 @@
-import { useState, useEffect } from "react";
 import "./header.css";
 import LightTheme from "./../images/light_theme.svg?react";
 import DarkTheme from "./../images/dark_theme.svg?react";
+import { useTheme } from "../../context/themeContext"; 
 
 export default function Header() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
-
+  const { theme, toggleTheme } = useTheme();
   const ThemeIcon = theme === "light" ? LightTheme : DarkTheme;
 
   return (
@@ -37,7 +32,7 @@ export default function Header() {
 
         <button
           className="theme-toggle"
-          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          onClick={toggleTheme}
           aria-pressed={theme === "dark"}
           title="Toggle theme"
         >
