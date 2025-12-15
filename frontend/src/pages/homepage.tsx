@@ -33,16 +33,52 @@ export default function HomePage() {
 
       {/* Пагінація */}
       <section className="pagination">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i + 1}
-            className={page === i + 1 ? "active" : ""}
-            onClick={() => setPage(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
+        {/* Кнопка "Назад" */}
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+        >
+          «
+        </button>
+
+        {/* Перша сторінка */}
+        {page > 3 && (
+          <>
+            <button onClick={() => setPage(1)}>1</button>
+            <span className="dots">...</span>
+          </>
+        )}
+
+        {/* Поточна сторінка ±2 */}
+        {Array.from({ length: totalPages }, (_, i) => i + 1)
+          .filter(p => p >= page - 2 && p <= page + 2)
+          .map(p => (
+            <button
+              key={p}
+              className={page === p ? "active" : ""}
+              onClick={() => setPage(p)}
+            >
+              {p}
+            </button>
+          ))}
+
+        {/* Остання сторінка */}
+        {page < totalPages - 2 && (
+          <>
+            <span className="dots">...</span>
+            <button onClick={() => setPage(totalPages)}>{totalPages}</button>
+          </>
+        )}
+
+        {/* Кнопка "Вперед" */}
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+        >
+          »
+        </button>
       </section>
+
     </div>
   );
 }
