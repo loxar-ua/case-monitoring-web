@@ -2,7 +2,7 @@
 export type ClusterReadDto = {
   id: number;
   name: string;
-  content?: string;
+  summary?: string;
   featuredImageURL?: string;
   lastUpdatedAt?: string;
 };
@@ -27,7 +27,7 @@ export type ClusterDetailedReadDto = {
   id: number;
   name: string;
   viewCounter: number;
-  content?: string;
+  summary?: string;
   featuredImageURL?: string;
   articles: ArticleReadDto[];
 };

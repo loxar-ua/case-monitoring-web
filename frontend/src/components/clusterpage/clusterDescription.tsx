@@ -4,10 +4,10 @@ type Props = {
   title: string;
   views: number;
   image?: string;
-  description?: string;
+  summary?: string;
 };
 
-export default function ClusterDescription({ title, views, image, description }: Props) {
+export default function ClusterDescription({ title, views, image, summary }: Props) {
   return (
     <section className="cluster-description">
       <h1 className="cluster-title">{title}</h1>
@@ -19,9 +19,12 @@ export default function ClusterDescription({ title, views, image, description }:
         </div>
       )}
 
-      {description && (
+      {summary && (
         <div className="cluster-text-block">
-          <p className="cluster-description-text">{description}</p>
+           <div
+      className="cluster-description-text"
+      dangerouslySetInnerHTML={{ __html: summary }}
+    ></div>
           <div className="cluster-ai-footer">Згенеровано ШІ</div>
         </div>
       )}
