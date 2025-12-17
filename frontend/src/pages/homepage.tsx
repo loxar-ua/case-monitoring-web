@@ -28,7 +28,7 @@ export default function HomePage() {
 
   const changePage = (newPage: number) => {
     setPage(newPage);
-    setSearchParams({ page: String(newPage) }); // записуємо в URL
+    setSearchParams({ page: String(newPage) });
   };
 
   return (
@@ -36,14 +36,14 @@ export default function HomePage() {
       <Start/>
         <NewsList news={paginatedNews} />
 
-      {/* Пагінація */}
+      {/* pagination */}
       <section className="pagination">
-        {/* Кнопка "Назад" */}
+        {/* back button */}
         <button disabled={page === 1} onClick={() => changePage(page - 1)}>
           «
         </button>
 
-        {/* Перша сторінка */}
+        {/* first page */}
         {page > 3 && (
           <>
             <button onClick={() => changePage(1)}>1</button>
@@ -51,7 +51,7 @@ export default function HomePage() {
           </>
         )}
 
-        {/* Поточна сторінка ±2 */}
+        {/* current page ±2 */}
         {Array.from({ length: totalPages }, (_, i) => i + 1)
           .filter(p => p >= page - 2 && p <= page + 2)
           .map(p => (
@@ -64,7 +64,7 @@ export default function HomePage() {
             </button>
           ))}
 
-        {/* Остання сторінка */}
+        {/* last page */}
         {page < totalPages - 2 && (
           <>
             <span className="dots">...</span>
@@ -72,7 +72,7 @@ export default function HomePage() {
           </>
         )}
 
-        {/* Кнопка "Вперед" */}
+        {/* forward button */}
         <button disabled={page === totalPages} onClick={() => changePage(page + 1)}>
           »
         </button>
