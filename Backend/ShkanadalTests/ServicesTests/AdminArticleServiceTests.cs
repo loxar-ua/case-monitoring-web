@@ -36,7 +36,6 @@ namespace ShkanadalTests.ServicesTests
             FeaturedImageURL = "FeaturedImageURL",
             Author = "Author",
             Content = "Some content",
-            Status = "Active",
             PublishedAt = new DateTime(2025, 12, 10),
             IsRelevant = true,
             IsChecked = true
@@ -116,14 +115,13 @@ namespace ShkanadalTests.ServicesTests
             FeaturedImageURL = "FeaturedImageURL1",
             Author = "Author1",
             Content = "Some content1",
-            Status = "Not Active",
             PublishedAt = new DateTime(2025, 8, 10),
             IsRelevant = false,
             IsChecked = false,
         }
             };
 
-            var pagedClusters =  PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
+            var pagedClusters = PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllArticlesNotCheckedAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                            .ReturnsAsync(pagedClusters);
@@ -178,7 +176,7 @@ namespace ShkanadalTests.ServicesTests
         {
             //Arrange
             var articles = new List<Article>();
-            var emptyPaged =  PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
+            var emptyPaged = PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllArticlesNotCheckedAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                            .ReturnsAsync(emptyPaged);

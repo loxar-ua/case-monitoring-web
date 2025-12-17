@@ -49,13 +49,29 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddAutoMapper(typeof(MapperProfile));
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<MapperProfile>();
+});
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+app.UseCors("Frontend");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -49,8 +49,8 @@ namespace ShkanadalTests.ControllersTests
         {
             //Arrange
             var clusters = new List<ClusterAdminReadDto> {
-                new ClusterAdminReadDto { Id = 6, Name = "Name", IsActive = true, Content = "Content", FeaturedImageURL = "FeaturedImageURL", LastUpdatedAt = new DateTime(2025, 12, 8) },
-                new ClusterAdminReadDto { Id = 8, Name = "Name1", IsActive = false, Content = "Content1", FeaturedImageURL = "FeaturedImageURL1", LastUpdatedAt = new DateTime(2025, 7, 6) }
+                new ClusterAdminReadDto { Id = 6, Name = "Name", IsRelevant = true, Summary = "Content", FeaturedImageURL = "FeaturedImageURL", LastUpdatedAt = new DateTime(2025, 12, 8) },
+                new ClusterAdminReadDto { Id = 8, Name = "Name1", IsRelevant = false, Summary = "Content1", FeaturedImageURL = "FeaturedImageURL1", LastUpdatedAt = new DateTime(2025, 7, 6) }
             };
             var pagedList = PagedList<ClusterAdminReadDto>.Create(clusters.AsQueryable(), 1, 10);
 
@@ -67,10 +67,10 @@ namespace ShkanadalTests.ControllersTests
             Assert.Equal(2, returnedList.TotalCount);
             Assert.Equal("Name", returnedList.Items[0].Name);
             Assert.Equal("Name1", returnedList.Items[1].Name);
-            Assert.True(returnedList.Items[0].IsActive);
-            Assert.False(returnedList.Items[1].IsActive);
-            Assert.Equal("Content", returnedList.Items[0].Content);
-            Assert.Equal("Content1", returnedList.Items[1].Content);
+            Assert.True(returnedList.Items[0].IsRelevant);
+            Assert.False(returnedList.Items[1].IsRelevant);
+            Assert.Equal("Content", returnedList.Items[0].Summary);
+            Assert.Equal("Content1", returnedList.Items[1].Summary);
         }
 
         //GetClusterById
@@ -97,8 +97,8 @@ namespace ShkanadalTests.ControllersTests
             {
                 Id = 7,
                 Name = "Name",
-                IsActive = true,
-                Content = "Some content",
+                IsRelevant = true,
+                Summary = "Some content",
                 FeaturedImageURL = "Image",
                 LastUpdatedAt = new DateTime(2025, 12, 10),
                 Articles = new List<ArticleReadDto>()
@@ -126,8 +126,8 @@ namespace ShkanadalTests.ControllersTests
             var request = new ClusterAdminUpdateRequest
             {
                 Name = "Name",
-                IsActive = true,
-                Content = "Some content",
+                IsRelevant = true,
+                Summary = "Some content",
                 FeaturedImageURL = "FeaturedImageURL"
             };
 
@@ -148,16 +148,16 @@ namespace ShkanadalTests.ControllersTests
             var clusterDto = new ClusterAdminUpdateDto
             {
                 Name = "UpdatedName",
-                IsActive = false,
-                Content = "Updated content",
+                IsRelevant = false,
+                Summary = "Updated content",
                 FeaturedImageURL = "UpdatedURL"
             };
 
             var request = new ClusterAdminUpdateRequest
             {
                 Name = "RequestName",
-                IsActive = true,
-                Content = "Some content",
+                IsRelevant = true,
+                Summary = "Some content",
                 FeaturedImageURL = "RequestURL"
             };
 

@@ -63,10 +63,12 @@ namespace ShkandalInfrastructure
             modelBuilder.Entity<Cluster>(entity =>
             {
                 entity.ToTable("cluster");
-
                 entity.HasKey(c => c.Id);
-                entity.Property(c => c.IsActive).HasColumnName("is_active");
+                entity.Property(c => c.IsRelevant).HasColumnName("is_relevant");
                 entity.Property(c => c.ViewCounter).HasColumnName("view_counter");
+                entity.Property(c => c.FeaturedImageURL).HasColumnName("featured_image_url");
+                entity.Property(c => c.LastUpdatedAt).HasColumnName("last_updated_at");
+
             });
 
 

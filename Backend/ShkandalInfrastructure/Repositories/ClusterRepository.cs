@@ -20,11 +20,11 @@ namespace ShkandalInfrastructure.Repositories
         }
         public async Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int pageNumber, int pageSize)
         {
-            var baseQuery = _dbSet.AsNoTracking();
+            var baseQuery = _dbSet.AsNoTracking().Where(c => c.IsRelevant == true);
             
             var query = SearchExtensions.ApplySearch(baseQuery, searchTerm);
 
-            return PagedList<Cluster>.Create(query, pageNumber, pageSize);
+            return await PagedList<Cluster>.CreateAsync(query, pageNumber, pageSize);
         }
 
         public async Task<Cluster?> GetByIdAsync(int id)

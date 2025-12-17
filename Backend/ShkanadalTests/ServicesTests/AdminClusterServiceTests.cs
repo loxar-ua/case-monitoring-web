@@ -31,9 +31,9 @@ namespace ShkanadalTests.ServicesTests
         {
             Id = 7,
             Name = "Test Cluster",
-            IsActive = true,
+            IsRelevant = true,
             ViewCounter = 1,
-            Content = "Some content",
+            Summary = "Some content",
             FeaturedImageURL = "FeaturedImageURL",
             LastUpdatedAt = new DateTime(2025, 12, 2),
             Articles = new List<Article>()
@@ -66,8 +66,8 @@ namespace ShkanadalTests.ServicesTests
                        {
                            Id = cluster.Id,
                            Name = cluster.Name,
-                           IsActive = cluster.IsActive,
-                           Content = cluster.Content,
+                           IsRelevant = cluster.IsRelevant,
+                           Summary = cluster.Summary,
                            LastUpdatedAt = cluster.LastUpdatedAt,
                            FeaturedImageURL = cluster.FeaturedImageURL,
                            Articles = new List<ArticleReadDto>()
@@ -80,8 +80,8 @@ namespace ShkanadalTests.ServicesTests
             Assert.NotNull(result);
             Assert.Equal(7, result.Id);
             Assert.Equal("Test Cluster", result.Name);
-            Assert.True(result.IsActive);
-            Assert.Equal("Some content", result.Content);
+            Assert.True(result.IsRelevant);
+            Assert.Equal("Some content", result.Summary);
             Assert.Equal(new DateTime(2025, 12, 2), result.LastUpdatedAt);
             Assert.Equal("FeaturedImageURL", result.FeaturedImageURL);
             Assert.Empty(result.Articles);
@@ -117,17 +117,17 @@ namespace ShkanadalTests.ServicesTests
                        .Returns((Cluster c) => new ClusterAdminUpdateDto
                        {
                            Name = c.Name,
-                           IsActive = c.IsActive,
-                           Content = c.Content,
+                           IsRelevant = c.IsRelevant,
+                           Summary = c.Summary,
                            FeaturedImageURL = c.FeaturedImageURL
                        });
 
             var request = new ClusterAdminUpdateRequest
             {
                 Name = "newName",
-                Content = "newContent",
+                Summary = "newContent",
                 FeaturedImageURL = "newImage",
-                IsActive = false
+                IsRelevant = false
             };
 
             //Act
@@ -136,9 +136,9 @@ namespace ShkanadalTests.ServicesTests
             //Assert
             Assert.NotNull(result);
             Assert.Equal("newName", result!.Name);
-            Assert.Equal("newContent", result.Content);
+            Assert.Equal("newContent", result.Summary);
             Assert.Equal("newImage", result.FeaturedImageURL);
-            Assert.False(result.IsActive);
+            Assert.False(result.IsRelevant);
 
             _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Cluster>()), Times.Once);
         }
@@ -157,17 +157,17 @@ namespace ShkanadalTests.ServicesTests
                        .Returns((Cluster c) => new ClusterAdminUpdateDto
                        {
                            Name = c.Name,
-                           IsActive = c.IsActive,
-                           Content = c.Content,
+                           IsRelevant = c.IsRelevant,
+                           Summary = c.Summary,
                            FeaturedImageURL = c.FeaturedImageURL
                        });
 
             var request = new ClusterAdminUpdateRequest
             {
                 Name = null,
-                Content = "",
+                Summary = "",
                 FeaturedImageURL = "   ",
-                IsActive = false
+                IsRelevant = false
             };
 
             //Act
@@ -176,9 +176,9 @@ namespace ShkanadalTests.ServicesTests
             //Assert
             Assert.NotNull(result);
             Assert.Equal("Test Cluster", result!.Name);
-            Assert.Equal("Some content", result.Content);
+            Assert.Equal("Some content", result.Summary);
             Assert.Equal("FeaturedImageURL", result.FeaturedImageURL);
-            Assert.False(result.IsActive);
+            Assert.False(result.IsRelevant);
 
             _repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<Cluster>()), Times.Once);
         }
@@ -195,9 +195,9 @@ namespace ShkanadalTests.ServicesTests
                 {
                     Id = 9,
                     Name = "Test Cluster1",
-                    IsActive = false,
+                    IsRelevant = false,
                     ViewCounter = 60,
-                    Content = "Some other content",
+                    Summary = "Some other content",
                     FeaturedImageURL = "FeaturedImageURL1",
                     LastUpdatedAt = new DateTime(2025, 10, 2),
                     Articles = new List<Article>()
@@ -214,8 +214,8 @@ namespace ShkanadalTests.ServicesTests
                        {
                            Id = src.Id,
                            Name = src.Name,
-                           IsActive = src.IsActive,
-                           Content = src.Content,
+                           IsRelevant = src.IsRelevant,
+                           Summary = src.Summary,
                            FeaturedImageURL = src.FeaturedImageURL,
                            LastUpdatedAt = src.LastUpdatedAt,
                        });
@@ -227,15 +227,15 @@ namespace ShkanadalTests.ServicesTests
             Assert.NotEmpty(result.Items);
             Assert.Equal(7, result.Items[0].Id);
             Assert.Equal("Test Cluster", result.Items[0].Name);
-            Assert.True(result.Items[0].IsActive);
-            Assert.Equal("Some content", result.Items[0].Content);
+            Assert.True(result.Items[0].IsRelevant);
+            Assert.Equal("Some content", result.Items[0].Summary);
             Assert.Equal("FeaturedImageURL", result.Items[0].FeaturedImageURL);
             Assert.Equal(new DateTime(2025, 12, 2), result.Items[0].LastUpdatedAt);
 
             Assert.Equal(9, result.Items[1].Id);
             Assert.Equal("Test Cluster1", result.Items[1].Name);
-            Assert.False(result.Items[1].IsActive);
-            Assert.Equal("Some other content", result.Items[1].Content);
+            Assert.False(result.Items[1].IsRelevant);
+            Assert.Equal("Some other content", result.Items[1].Summary);
             Assert.Equal("FeaturedImageURL1", result.Items[1].FeaturedImageURL);
             Assert.Equal(new DateTime(2025, 10, 2), result.Items[1].LastUpdatedAt);
         }
@@ -245,7 +245,7 @@ namespace ShkanadalTests.ServicesTests
         {
             //Arrange
             var clusters = new List<Cluster>();
-            var emptyPaged =  PagedList<Cluster>.Create(clusters.AsQueryable(), 1, 10);
+            var emptyPaged = PagedList<Cluster>.Create(clusters.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllClustersAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                            .ReturnsAsync(emptyPaged);
