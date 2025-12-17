@@ -121,7 +121,7 @@ namespace ShkanadalTests.ServicesTests
         }
             };
 
-            var pagedClusters =  PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
+            var pagedClusters = PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllArticlesNotCheckedAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                            .ReturnsAsync(pagedClusters);
@@ -176,7 +176,7 @@ namespace ShkanadalTests.ServicesTests
         {
             //Arrange
             var articles = new List<Article>();
-            var emptyPaged =  PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
+            var emptyPaged = PagedList<Article>.Create(articles.AsQueryable(), 1, 10);
 
             _repositoryMock.Setup(r => r.GetAllArticlesNotCheckedAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                            .ReturnsAsync(emptyPaged);

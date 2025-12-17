@@ -52,8 +52,8 @@ namespace ShkanadalTests.ControllersTests
         {
             //Arrange
             var clusters = new List<ClusterReadDto> {
-                new ClusterReadDto { Id = 6, Name = "Name", Content = "Content", FeaturedImageURL = "FeaturedImageURL", LastUpdatedAt = new DateTime(2025, 12, 8) },
-                new ClusterReadDto { Id = 8, Name = "Name1", Content = "Content1", FeaturedImageURL = "FeaturedImageURL1", LastUpdatedAt = new DateTime(2025, 7, 6) }
+                new ClusterReadDto { Id = 6, Name = "Name", Summary = "Content", FeaturedImageURL = "FeaturedImageURL", LastUpdatedAt = new DateTime(2025, 12, 8) },
+                new ClusterReadDto { Id = 8, Name = "Name1", Summary = "Content1", FeaturedImageURL = "FeaturedImageURL1", LastUpdatedAt = new DateTime(2025, 7, 6) }
             };
 
             var pagedList = PagedList<ClusterReadDto>.Create(clusters.AsQueryable(), 1, 10);
@@ -70,8 +70,8 @@ namespace ShkanadalTests.ControllersTests
             Assert.Equal(2, returnedList.TotalCount);
             Assert.Equal("Name", returnedList.Items[0].Name);
             Assert.Equal("Name1", returnedList.Items[1].Name);
-            Assert.Equal("Content", returnedList.Items[0].Content);
-            Assert.Equal("Content1", returnedList.Items[1].Content);
+            Assert.Equal("Content", returnedList.Items[0].Summary);
+            Assert.Equal("Content1", returnedList.Items[1].Summary);
         }
 
 
@@ -99,7 +99,7 @@ namespace ShkanadalTests.ControllersTests
                 Id = 7,
                 Name = "Name",
                 ViewCounter = 7,
-                Content = "Some content",
+                Summary = "Some content",
                 FeaturedImageURL = "FeaturedImageURL",
                 Articles = new List<ArticleReadDto>()
             };

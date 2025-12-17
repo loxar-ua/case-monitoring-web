@@ -58,11 +58,11 @@ namespace ShkandalServices
             if (!string.IsNullOrWhiteSpace(update.Name))
                 cluster.Name = update.Name;
 
-            if (update.IsActive.HasValue)
-                cluster.IsActive = update.IsActive.Value;
+            if (update.IsRelevant.HasValue)
+                cluster.IsRelevant = update.IsRelevant.Value;
 
-            if (!string.IsNullOrWhiteSpace(update.Content))
-                cluster.Content = update.Content;
+            if (!string.IsNullOrWhiteSpace(update.Summary))
+                cluster.Summary = update.Summary;
 
             if (!string.IsNullOrWhiteSpace(update.FeaturedImageURL))
                 cluster.FeaturedImageURL = update.FeaturedImageURL;

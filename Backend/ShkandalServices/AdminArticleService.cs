@@ -56,6 +56,9 @@ namespace ShkandalServices
             if (update.IsChecked.HasValue)
                 article.IsChecked = update.IsChecked.Value;
 
+            if (update.IsRelevant.HasValue)
+                article.IsRelevant = update.IsRelevant.Value;
+
             if (update.ClusterId.HasValue)
             {
                 if (await _repository.ClusterExistsAsync(update.ClusterId.Value))

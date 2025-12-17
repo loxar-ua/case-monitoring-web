@@ -29,7 +29,7 @@ namespace ShkandalInfrastructure.Repositories
 
             var query = SearchExtensions.ApplySearch(baseQuery, searchTerm);
 
-            return PagedList<Article>.Create(query, pageNumber, pageSize);
+            return await PagedList<Article>.CreateAsync(query, pageNumber, pageSize);
         }
 
         public async Task<Article?> GetArticleByIdAsync(int id)

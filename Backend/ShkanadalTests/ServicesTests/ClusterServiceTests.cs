@@ -29,7 +29,7 @@ namespace ShkanadalTests.ServicesTests
             Name = "Test Cluster",
             IsRelevant = true,
             ViewCounter = 1,
-            Content = "Some content",
+            Summary = "Some content",
             FeaturedImageURL = "FeaturedImageURL",
             LastUpdatedAt = new DateTime(2025, 12, 2),
             Articles = new List<Article>()
@@ -65,7 +65,7 @@ namespace ShkanadalTests.ServicesTests
                            Id = cluster.Id,
                            Name = cluster.Name,
                            ViewCounter = cluster.ViewCounter,
-                           Content = cluster.Content,
+                           Summary = cluster.Summary,
                            FeaturedImageURL = cluster.FeaturedImageURL,
                            Articles = new List<ArticleReadDto>()
                        });
@@ -78,7 +78,7 @@ namespace ShkanadalTests.ServicesTests
             Assert.Equal(7, result.Id);
             Assert.Equal("Test Cluster", result.Name);
             Assert.Equal(1, result.ViewCounter);
-            Assert.Equal("Some content", result.Content);
+            Assert.Equal("Some content", result.Summary);
             Assert.Equal("FeaturedImageURL", result.FeaturedImageURL);
             Assert.Empty(result.Articles);
         }
@@ -140,7 +140,7 @@ namespace ShkanadalTests.ServicesTests
                       Name = "Test Cluster1",
                       IsRelevant = false,
                       ViewCounter = 60,
-                      Content = "Some other content",
+                      Summary = "Some other content",
                       FeaturedImageURL = "FeaturedImageURL1",
                       LastUpdatedAt = new DateTime(2025, 10, 2),
                       Articles = new List<Article>()
@@ -157,7 +157,7 @@ namespace ShkanadalTests.ServicesTests
              {
                  Id = src.Id,
                  Name = src.Name,
-                 Content = src.Content,
+                 Summary = src.Summary,
                  FeaturedImageURL = src.FeaturedImageURL,
                  LastUpdatedAt = src.LastUpdatedAt,
              });
@@ -170,13 +170,13 @@ namespace ShkanadalTests.ServicesTests
 
             Assert.Equal(7, result.Items[0].Id);
             Assert.Equal("Test Cluster", result.Items[0].Name);
-            Assert.Equal("Some content", result.Items[0].Content);
+            Assert.Equal("Some content", result.Items[0].Summary);
             Assert.Equal("FeaturedImageURL", result.Items[0].FeaturedImageURL);
             Assert.Equal(new DateTime(2025, 12, 2), result.Items[0].LastUpdatedAt);
 
             Assert.Equal(9, result.Items[1].Id);
             Assert.Equal("Test Cluster1", result.Items[1].Name);
-            Assert.Equal("Some other content", result.Items[1].Content);
+            Assert.Equal("Some other content", result.Items[1].Summary);
             Assert.Equal("FeaturedImageURL1", result.Items[1].FeaturedImageURL);
             Assert.Equal(new DateTime(2025, 10, 2), result.Items[1].LastUpdatedAt);
         }
