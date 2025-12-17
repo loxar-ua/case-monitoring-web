@@ -27,7 +27,7 @@ export default function ArticleCard({ item }: Props) {
           <span className="article-source">
             {item.media?.name ?? "Джерело"}
           </span>
-          <span className="article-author">{item.author}</span>
+           <span className="article-author">{item.author}</span>
         </div>
       </div>
     </a>

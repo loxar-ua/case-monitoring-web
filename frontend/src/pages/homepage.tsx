@@ -9,22 +9,24 @@ const ITEMS_PER_PAGE = 12;
 
 export default function HomePage() {
   const [allNews, setAllNews] = useState<ClusterReadDto[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialPage = parseInt(searchParams.get("page") || "1", 10);
   const [page, setPage] = useState(initialPage);
 
-  useEffect(() => {
-    fetch("/news.json")
-      .then((res) => res.json())
-      .then((data: ClusterReadDto[]) => setAllNews(data))
-      .catch((err) => console.error("Помилка завантаження новин:", err));
-  }, []);
+useEffect(() => {
+  fetch(`/api/Cluster?pageNumber=${page}&pageSize=${ITEMS_PER_PAGE}`)
+    .then(res => res.json())
+    .then((data: { items: ClusterReadDto[]; totalPages: number }) => {
+      setAllNews(data.items);
+      setTotalPages(data.totalPages);
 
-  const totalPages = Math.ceil(allNews.length / ITEMS_PER_PAGE);
-  const paginatedNews = allNews.slice(
-    (page - 1) * ITEMS_PER_PAGE,
-    page * ITEMS_PER_PAGE
-  );
+      data.items.forEach(cluster => {
+        fetch(`/api/Cluster/${cluster.id}`, { method: "PATCH" }).catch(() => {});
+      });
+    })
+    .catch(err => console.error("Помилка завантаження новин:", err));
+}, [page]);
 
   const changePage = (newPage: number) => {
     setPage(newPage);
@@ -33,15 +35,12 @@ export default function HomePage() {
 
   return (
     <div className="homepage">
-      <Start/>
-        <NewsList news={paginatedNews} />
+      <Start />
+      <NewsList news={allNews} />
 
       {/* pagination */}
       <section className="pagination">
-        {/* back button */}
-        <button disabled={page === 1} onClick={() => changePage(page - 1)}>
-          «
-        </button>
+        <button disabled={page === 1} onClick={() => changePage(page - 1)}>«</button>
 
         {/* first page */}
         {page > 3 && (
@@ -72,10 +71,7 @@ export default function HomePage() {
           </>
         )}
 
-        {/* forward button */}
-        <button disabled={page === totalPages} onClick={() => changePage(page + 1)}>
-          »
-        </button>
+        <button disabled={page === totalPages} onClick={() => changePage(page + 1)}>»</button>
       </section>
     </div>
   );

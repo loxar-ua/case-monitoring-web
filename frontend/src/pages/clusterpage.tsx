@@ -15,8 +15,7 @@ export default function ClusterPage() {
 
     const loadCluster = async () => {
       try {
-        //завантажуємо конкретний JSON-файл, наприклад cluster-1.json
-        const res = await fetch(`/cluster-${id}.json`);
+        const res = await fetch(`/api/Cluster/${id}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         const data: ClusterDetailedReadDto = await res.json();
@@ -41,7 +40,7 @@ export default function ClusterPage() {
         title={cluster.name}
         views={cluster.viewCounter}
         image={cluster.featuredImageURL}
-        description={cluster.content}
+        summary={cluster.summary}
       />
       <ArticleGrid articles={cluster.articles} />
     </div>
