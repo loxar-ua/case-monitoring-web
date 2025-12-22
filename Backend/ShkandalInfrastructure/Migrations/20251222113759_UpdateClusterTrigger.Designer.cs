@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShkandalInfrastructure;
@@ -11,9 +12,11 @@ using ShkandalInfrastructure;
 namespace ShkandalInfrastructure.Migrations
 {
     [DbContext(typeof(ShkandalDbContext))]
-    partial class ShkandalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251222113759_UpdateClusterTrigger")]
+    partial class UpdateClusterTrigger
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
