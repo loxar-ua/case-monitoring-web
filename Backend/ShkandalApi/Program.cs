@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ShkandalDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("ShkandalConnection"))
         .UseCamelCaseNamingConvention());
-builder.Services.AddControllers();
+
 var jwtKey = builder.Configuration["Jwt:Key"];
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -32,10 +32,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
-builder.Services.AddDbContext<ShkandalDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("ShkandalConnection"))
-        .UseCamelCaseNamingConvention());
 
 builder.Services.AddScoped<IClusterRepository, ClusterRepository>();
 builder.Services.AddScoped<IAdminArticlesRepository, AdminArticlesRepository>();
