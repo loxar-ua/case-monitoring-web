@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ShkanadalTests.RepositoryTests
 {
-    public class SearchExtansionsTests : IClassFixture<DatabaseFixture>, IAsyncLifetime
+    public class ClusterSearchTests : IClassFixture<DatabaseFixture>, IAsyncLifetime
     {
         private readonly DatabaseFixture _fixture;
         private readonly ShkandalDbContext _context;
 
-        public SearchExtansionsTests(DatabaseFixture fixture)
+        public ClusterSearchTests(DatabaseFixture fixture)
         {
             _fixture = fixture;
             _context = _fixture.CreateContext();
@@ -37,16 +37,16 @@ namespace ShkanadalTests.RepositoryTests
         public Task DisposeAsync() => Task.CompletedTask;
 
         [Fact]
-        public async Task ApplySearch_ReturnsAll()
+        public async Task ApplySearch_NullSearchTerm_ReturnsAllSortedByViews()
         {
             var result = await SearchExtensions.ApplySearch(_context.Clusters, null).ToListAsync();
 
             Assert.Equal(4, result.Count);
-            Assert.Equal("Справа «Мідас»: Міндіч, «Енергоатом», НАБУ/САП, Галущенко та Гринчук", result[0].Name);
+            Assert.Contains("Міндіч", result[0].Name);
         }
 
         [Fact]
-        public async Task ApplySearch_ILike_Returns3()
+        public async Task ApplySearch_ShortSearchTerm_ReturnsPartialMatches()
         {
             var result = await SearchExtensions.ApplySearch(_context.Clusters, "Зел").ToListAsync();
 
@@ -55,15 +55,52 @@ namespace ShkanadalTests.RepositoryTests
             Assert.Equal("Зеленський, Міністерство оборони, Верховна Рада та ОПК: масштабна державна програма виробництва дронів і податкові пільги для оптоволокна", result[1].Name);
             Assert.Equal("Коаліція рішучих: Макрон, Зеленський та країни-учасниці про розгортання іноземного контингенту в Україні", result[2].Name);
         }
-        //триграми не працюють для довгих заголовків
 
-        //[Fact]
-        //public async Task ApplySearch_Trigram_ReturnsWithFix()
-        //{
-        //    var result = await SearchExtensions.ApplySearch(_context.Clusters, "Міндоч").ToListAsync();
+        [Fact]
+        public async Task ApplySearch_TypoInQuery_ReturnsCorrectCluster()
+        {
+            var result = await SearchExtensions.ApplySearch(_context.Clusters, "Міндоч").ToListAsync();
 
-        //    Assert.Equal(1, result.Count);
-        //    Assert.Equal("Справа «Мідас»: Міндіч, «Енергоатом», НАБУ/САП, Галущенко та Гринчук", result[0].Name);
-        //}
+            Assert.Single(result);
+            Assert.Equal("Справа «Мідас»: Міндіч, «Енергоатом», НАБУ/САП, Галущенко та Гринчук", result[0].Name);
+        }
+
+        [Fact]
+        public async Task ApplySearch_MissingCharInQuery_ReturnsMultipleMatches()
+        {
+            var result = await SearchExtensions.ApplySearch(_context.Clusters, "Зеленкй").ToListAsync();
+
+            Assert.Equal(3, result.Count);
+        }
+
+        [Fact]
+        public async Task ApplySearch_LongQuery_ReturnsCorrectCluster()
+        {
+            var result = await SearchExtensions.ApplySearch(_context.Clusters, "Зеленський, Міністерство оборони, Верховна Рада та ОПК: масштабна державна програма виробництва дронів і податкові пільги для оптоволокна").ToListAsync();
+
+            Assert.Single(result);
+        }
+        [Fact]
+        public async Task ApplySearch_SimilarButDifferentName_ReturnsEmpty()
+        {
+            var result = await SearchExtensions.ApplySearch(_context.Clusters, "Галуцький").ToListAsync();
+
+            Assert.Empty(result);
+        }
+        [Fact]
+        public async Task ApplySearch_QueryWithSpaces_ReturnsClusterWithSlash()
+        {
+            var result = await SearchExtensions.ApplySearch(_context.Clusters, "набу сап").ToListAsync();
+
+            Assert.Single(result);
+            Assert.Contains("НАБУ/САП", result[0].Name);
+        }
+        [Fact]
+        public async Task ApplySearch_DifferentCase_ReturnsCorrectCluster()
+        {
+            var result = await SearchExtensions.ApplySearch(_context.Clusters, "мАкРоН").ToListAsync();
+
+            Assert.Single(result); 
+        }
     }
 }

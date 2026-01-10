@@ -12,7 +12,7 @@ namespace ShkandalData.Common
         public const int TrigramThresholdLength = 5;
 
         // The minimum similarity threshold required for Trigram search results (0.0 to 1.0).
-        public const double TrigramAccuracyThreshold = 0.1;
+        public const double TrigramAccuracyThreshold = 0.5;
 
         //The default number of items to display on a single page if not specified.
         public const int DefaultPageSize = 10;
