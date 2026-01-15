@@ -20,12 +20,12 @@ namespace ShkandalData.Common
             if (searchTerm.Length < Constants.TrigramThresholdLength)
             {
                 return query
-                    .Where(c => EF.Functions.ILike(c.Name, $"{searchTerm}%"))
+                    .Where(c => EF.Functions.ILike(c.Name, $"%{searchTerm}%"))
                     .OrderByDescending(c => c.ViewCounter);
             }
             return query
-                .Where(c => EF.Functions.TrigramsSimilarity(c.Name, searchTerm) > Constants.TrigramAccuracyThreshold)
-                .OrderByDescending(c => EF.Functions.TrigramsSimilarity(c.Name, searchTerm))
+                .Where(c => EF.Functions.TrigramsWordSimilarity(searchTerm, c.Name) > Constants.TrigramAccuracyThreshold)
+                .OrderByDescending(c => EF.Functions.TrigramsWordSimilarity(searchTerm, c.Name))
                 .ThenByDescending(c => c.ViewCounter);
         }
 
@@ -39,13 +39,13 @@ namespace ShkandalData.Common
             if (searchTerm.Length < Constants.TrigramThresholdLength)
             {
                 return query
-                    .Where(a => EF.Functions.ILike(a.Title, $"{searchTerm}%"))
+                    .Where(a => EF.Functions.ILike(a.Title, $"%{searchTerm}%"))
                     .OrderByDescending(a => a.PublishedAt);
             }
 
             return query
-                .Where(a => EF.Functions.TrigramsSimilarity(a.Title, searchTerm) > Constants.TrigramAccuracyThreshold)
-                .OrderByDescending(a => EF.Functions.TrigramsSimilarity(a.Title, searchTerm))
+                .Where(a => EF.Functions.TrigramsWordSimilarity(searchTerm, a.Title) > Constants.TrigramAccuracyThreshold)
+                .OrderByDescending(a => EF.Functions.TrigramsWordSimilarity(searchTerm, a.Title))
                 .ThenByDescending(a => a.PublishedAt);
         }
     }

@@ -62,7 +62,7 @@ h2.cluster-title {
   color: var(--muted); 
 }
 
-p.cluster-text {
+div.cluster-text {
   height: 45px; 
   overflow: hidden;
   color: var(--text);
