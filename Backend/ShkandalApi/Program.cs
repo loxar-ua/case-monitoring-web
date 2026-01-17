@@ -33,11 +33,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IClusterRepository, ClusterRepository>();
 builder.Services.AddScoped<IAdminArticlesRepository, AdminArticlesRepository>();
 builder.Services.AddScoped<IAdminClustersRepository, AdminClustersRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IClusterService, ClusterService>();
 builder.Services.AddScoped<IAdminArticleService, AdminArticleService>();
 builder.Services.AddScoped<IAdminClusterService, AdminClusterService>();

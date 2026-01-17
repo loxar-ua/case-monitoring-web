@@ -10,7 +10,7 @@ namespace ShkandalInfrastructure.Repositories
 {
     public interface IClusterRepository 
     {
-        public Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int pageNumber, int pageSize);
+        public Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int? categotyId, string? sortBy, int pageNumber, int pageSize);
         public Task<Cluster?> GetByIdAsync(int id);
         public Task<Cluster?> IncrementViewCounterAsync(int id);
     }
