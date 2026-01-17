@@ -20,7 +20,7 @@ namespace ShkandalInfrastructure
         public DbSet<User> Users { get; set; }
         public DbSet<Cluster> Clusters { get; set; }
         public DbSet<Media> Media { get; set; }
-
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -60,6 +60,13 @@ namespace ShkandalInfrastructure
                 entity.Property(u => u.PasswordHash).HasColumnName("password_hash");
             });
 
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.ToTable("category");
+
+                entity.HasKey(c => c.Id);
+            });
+
             modelBuilder.Entity<Cluster>(entity =>
             {
                 entity.ToTable("cluster");
@@ -69,6 +76,8 @@ namespace ShkandalInfrastructure
                 entity.Property(c => c.FeaturedImageURL).HasColumnName("featured_image_url");
                 entity.Property(c => c.LastUpdatedAt).HasColumnName("last_updated_at");
 
+                entity.HasMany(c => c.Categories)
+                   .WithMany(ca => ca.Clusters);
             });
 
 

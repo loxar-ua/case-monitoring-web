@@ -18,11 +18,14 @@ namespace ShkandalInfrastructure.Repositories
             _context = context;
             _dbSet = _context.Set<Cluster>();
         }
-        public async Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int pageNumber, int pageSize)
+        public async Task<PagedList<Cluster>> GetAllAsync(string? searchTerm, int? categoryId, string? sortBy, int pageNumber, int pageSize)
         {
-            var baseQuery = _dbSet.AsNoTracking().Where(c => c.IsRelevant == true);
+            var query = _dbSet.AsNoTracking().Where(c => c.IsRelevant == true);
             
-            var query = SearchExtensions.ApplySearch(baseQuery, searchTerm);
+            if(!string.IsNullOrWhiteSpace(searchTerm))
+                query = SearchExtensions.ApplySearch(query, searchTerm);
+            else
+                query = query.ApplyCategoryFilter(categoryId).ApplySorting(sortBy);
 
             return await PagedList<Cluster>.CreateAsync(query, pageNumber, pageSize);
         }

@@ -15,6 +15,7 @@ namespace ShkandalData.Models
         public string? Summary { get; set; }
         public string? FeaturedImageURL { get; set; }
         public DateTime? LastUpdatedAt { get; set; }
+        public ICollection<Category> Categories { get; set; } = new List<Category>();
         public ICollection<Article> Articles { get; set; } = new List<Article>();
     }
 }

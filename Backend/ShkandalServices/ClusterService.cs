@@ -14,23 +14,36 @@ namespace ShkandalServices
     {
 
         private readonly IClusterRepository _repository;
-
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
 
-        public ClusterService(IClusterRepository repository, IMapper mapper)
+        public ClusterService(IClusterRepository repository, ICategoryRepository categoryRepository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
+            _categoryRepository = categoryRepository;
         }
 
-        public async Task<PagedList<ClusterReadDto>> GetAllAsync(string? name, int pageNumber, int pageSize)
+        public async Task<PagedList<ClusterReadDto>> GetAllAsync(string? name, int? categoryId, string? sortBy, int pageNumber, int pageSize)
         {
-            var clusters = await _repository.GetAllAsync(name, pageNumber, pageSize);
+            if (categoryId.HasValue && categoryId > 0)
+            {
+                if (! await _categoryRepository.CategoryExistsAsync(categoryId.Value))
+                {
+                    categoryId = null;
+                }
+            }
 
-            var result = clusters.Select(cluster =>
-                           _mapper.Map<ClusterReadDto>(cluster));
+            var clusters = await _repository.GetAllAsync(name, categoryId, sortBy, pageNumber, pageSize);
 
-            return result;
+            var dtos = _mapper.Map<IEnumerable<ClusterReadDto>>(clusters.Items);
+
+            return new PagedList<ClusterReadDto>(
+                dtos.ToList(),
+                clusters.TotalCount,
+                clusters.CurrentPage,
+                clusters.PageSize
+            );
         }
 
         public async Task<ClusterDetailedReadDto?> GetByIdAsync(int id)
