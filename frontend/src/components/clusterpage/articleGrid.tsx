@@ -38,9 +38,7 @@ export default function ArticleGrid({ articles }: Props) {
   );
 }
 
-/**
- * Групування по роках
- */
+/*group by year*/
 function groupByYear(articles: ArticleReadDto[]) {
   return articles.reduce((acc, article) => {
     const year = new Date(article.publishedAt).getFullYear();
@@ -49,11 +47,8 @@ function groupByYear(articles: ArticleReadDto[]) {
   }, {} as Record<number, ArticleReadDto[]>);
 }
 
-/**
- * Групування по днях:
- * - key: ISO-формат YYYY-MM-DD для сортування
- * - label: локалізований "DD місяць"
- */
+
+/*group by day*/
 function groupByDay(articles: ArticleReadDto[]) {
   const map = new Map<
     string,

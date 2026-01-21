@@ -16,3 +16,28 @@ body {
   color: var(--text);
   font-family: "Unbounded-Light", sans-serif;
 }
+
+a { color: var(--text);
+    text-decoration: none;
+}
+
+h3 { margin-left: 20px;
+}
+
+h4 { margin-left: 20px;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  min-height: 100vh;       
+  display: flex;
+  flex-direction: column;  
+}
+
+.app-content {
+  flex: 1;
+}
