@@ -1,12 +1,16 @@
 import "./header.css";
 import LightTheme from "./../images/light_theme.svg?react";
 import DarkTheme from "./../images/dark_theme.svg?react";
-import { useTheme } from "../../context/themeContext"; 
+import { useTheme } from "../../context/themeContext";
+import { useNavigate } from "react-router-dom"; 
+import type { ChangeEvent } from "react";
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const ThemeIcon = theme === "light" ? LightTheme : DarkTheme;
+  const navigate = useNavigate();
 
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => { const value = e.target.value; navigate(`/search?query=${encodeURIComponent(value)}`); };
   return (
     <header className="app-header" role="banner">
       <div className="header-inner">
@@ -27,6 +31,7 @@ export default function Header() {
             type="search"
             placeholder="Search"
             aria-label="Search"
+            onChange={handleSearch}
           />
         </form>
 

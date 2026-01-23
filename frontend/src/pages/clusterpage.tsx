@@ -31,8 +31,8 @@ export default function ClusterPage() {
     loadCluster();
   }, [id]);
 
-  if (loading) return <p>Завантаження…</p>;
-  if (!cluster) return <p>Справу не знайдено</p>;
+  if (loading) return <h4>Завантаження…</h4>;
+  if (!cluster) return <h4>Справу не знайдено</h4>;
 
   return (
     <div className="cluster-page">

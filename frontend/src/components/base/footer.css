@@ -3,7 +3,7 @@
   margin-top: 20px;
   background: var(--footer);
   box-shadow: 0 -3px 10px var(--shadow);
-  padding: 20px 2%;
+  padding: 20px 0px;
   color: var(--bg);
   position: static;
 }

@@ -5,10 +5,10 @@ type Props = { children: React.ReactNode };
 
 export default function Layout({ children }: Props) {
   return (
-    <>
+    <div className="app-container">
       <Header />
-      <main>{children}</main>
+      <main className="app-content">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 }
