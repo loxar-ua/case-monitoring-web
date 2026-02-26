@@ -35,11 +35,17 @@ namespace ShkanadalTests.ControllersTests
 
             var pagedList = PagedList<ClusterReadDto>.Create(clusters.AsQueryable(), 1, 10);
 
-            _serviceMock.Setup(s => s.GetAllAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+            _serviceMock.Setup(s => s.GetAllAsync(
+                It.IsAny<string?>(),
+                It.IsAny<int?>(),     
+                It.IsAny<string?>(),  
+                It.IsAny<int>(),
+                It.IsAny<int>()
+            ))
             .ReturnsAsync(pagedList);
 
             //Act
-            var result = await _controller.GetAllAsync(null, 1, 10);
+            var result = await _controller.GetAllAsync(null, null, null, 1, 10);
 
             //Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
@@ -58,11 +64,17 @@ namespace ShkanadalTests.ControllersTests
 
             var pagedList = PagedList<ClusterReadDto>.Create(clusters.AsQueryable(), 1, 10);
 
-            _serviceMock.Setup(s => s.GetAllAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+            _serviceMock.Setup(s => s.GetAllAsync(
+                It.IsAny<string?>(),
+                It.IsAny<int?>(),     
+                It.IsAny<string?>(), 
+                It.IsAny<int>(),
+                It.IsAny<int>()
+            ))
             .ReturnsAsync(pagedList);
 
             //Act
-            var result = await _controller.GetAllAsync(null, 1, 10);
+            var result = await _controller.GetAllAsync(null, null, null, 1, 10);
 
             //Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);

@@ -13,14 +13,19 @@ namespace ShkanadalTests.ServicesTests
     {
         private readonly Mock<IClusterRepository> _repositoryMock;
         private readonly Mock<IMapper> _mapperMock;
+        private readonly Mock<ICategoryRepository> _categoryRepositoryMock;
         private readonly ClusterService _service;
 
         public ClusterServiceTests()
         {
             _repositoryMock = new Mock<IClusterRepository>();
             _mapperMock = new Mock<IMapper>();
-
-            _service = new ClusterService(_repositoryMock.Object, _mapperMock.Object);
+            _categoryRepositoryMock = new Mock<ICategoryRepository>();
+            _service = new ClusterService(
+            _repositoryMock.Object,
+            _categoryRepositoryMock.Object, 
+            _mapperMock.Object
+        );
         }
 
         Cluster cluster = new()
@@ -149,8 +154,14 @@ namespace ShkanadalTests.ServicesTests
 
             var pagedClusters = PagedList<Cluster>.Create(clusters.AsQueryable(), 1, 10);
 
-            _repositoryMock.Setup(r => r.GetAllAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
-                  .ReturnsAsync(pagedClusters);
+            _repositoryMock.Setup(r => r.GetAllAsync(
+                It.IsAny<string?>(), 
+                It.IsAny<int?>(),    
+                It.IsAny<string?>(), 
+                It.IsAny<int>(),     
+                It.IsAny<int>()      
+                ))
+               .ReturnsAsync(pagedClusters);
 
             _mapperMock.Setup(m => m.Map<ClusterReadDto>(It.IsAny<Cluster>()))
              .Returns((Cluster src) => new ClusterReadDto
@@ -163,7 +174,7 @@ namespace ShkanadalTests.ServicesTests
              });
 
             //Act
-            var result = await _service.GetAllAsync(null, 1, 10);
+            var result = await _service.GetAllAsync(null, null, null, 1, 10);
 
             //Assert
             Assert.NotEmpty(result.Items);
@@ -187,11 +198,17 @@ namespace ShkanadalTests.ServicesTests
             //Arrange
             var clusters = new List<Cluster> { };
             var emptyPaged =  PagedList<Cluster>.Create(clusters.AsQueryable(), 1, 10);
-            _repositoryMock.Setup(r => r.GetAllAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+            _repositoryMock.Setup(r => r.GetAllAsync(
+                It.IsAny<string?>(),
+                It.IsAny<int?>(),    
+                It.IsAny<string?>(), 
+                It.IsAny<int>(),
+                It.IsAny<int>()
+                ))
                 .ReturnsAsync(emptyPaged);
 
             //Act
-            var result = await _service.GetAllAsync(null, 1, 10);
+            var result = await _service.GetAllAsync(null, null, null, 1, 10);
 
             //Assert
             Assert.Equal(0, result.TotalCount);
