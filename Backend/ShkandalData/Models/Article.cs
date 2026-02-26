@@ -12,6 +12,8 @@ namespace ShkandalData.Models
         public int Id { get; set; }
         public int? ClusterId { get; set; }
         public Cluster? Cluster { get; set; }
+        public int? EventId { get; set; }
+        public Event? Event { get; set; }
         public int MediaId { get; set; }
         public required Media Media { get; set; }
         public required string Title { get; set; }

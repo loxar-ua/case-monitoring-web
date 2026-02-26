@@ -2,6 +2,7 @@
 using shkandalData.DTOs.ArticleDtos;
 using shkandalData.DTOs.ClusterDtos;
 using shkandalData.DTOs.MediaDtos;
+using ShkandalData.DTOs.EventDtos;
 using ShkandalData.Models;
 
 namespace shkandalData
@@ -18,6 +19,9 @@ namespace shkandalData
                    (src, dest, srcMember) => srcMember != null));
 
             CreateMap<Media, MediaReadDto>();
+
+            CreateMap<Event, EventReadDto>();
+            CreateMap<Event, EventWithArticlesReadDto>();
 
             CreateMap<Cluster, ClusterReadDto>();
             CreateMap<Cluster, ClusterDetailedReadDto>();
