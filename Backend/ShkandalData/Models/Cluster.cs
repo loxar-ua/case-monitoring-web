@@ -17,5 +17,7 @@ namespace ShkandalData.Models
         public DateTime? LastUpdatedAt { get; set; }
         public ICollection<Category> Categories { get; set; } = new List<Category>();
         public ICollection<Article> Articles { get; set; } = new List<Article>();
+        public ICollection<Event> Events { get; set; } = new List<Event>();
+
     }
 }
