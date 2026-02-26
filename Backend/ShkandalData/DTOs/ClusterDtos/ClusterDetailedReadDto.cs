@@ -1,4 +1,4 @@
-﻿using shkandalData.DTOs.ArticleDtos;
+﻿using ShkandalData.DTOs.EventDtos;
 
 namespace shkandalData.DTOs.ClusterDtos
 {
@@ -9,6 +9,6 @@ namespace shkandalData.DTOs.ClusterDtos
         public int ViewCounter { get; set; }
         public string? Summary { get; set; }
         public string? FeaturedImageURL { get; set; }
-        public ICollection<ArticleReadDto> Articles { get; set; } = new List<ArticleReadDto>();
+        public ICollection<EventReadDto> Articles { get; set; } = new List<EventReadDto>();
     }
 }

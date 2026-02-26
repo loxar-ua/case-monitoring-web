@@ -16,7 +16,7 @@ namespace shkandal_api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<EventReadDto>> GetByIdAsync(int id)
+        public async Task<ActionResult<EventWithArticlesReadDto>> GetByIdAsync(int id)
         {
             var result = await _service.GetByIdAsync(id);
 

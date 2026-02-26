@@ -1,5 +1,4 @@
-﻿
-namespace shkandalData.DTOs.ClusterDtos
+﻿namespace shkandalData.DTOs.ClusterDtos
 {
     public class ClusterReadDto
     {
@@ -8,5 +7,5 @@ namespace shkandalData.DTOs.ClusterDtos
         public string? Summary { get; set; }
         public string? FeaturedImageURL { get; set; }
         public DateTime? LastUpdatedAt { get; set; }
-  }
+    }
 }
