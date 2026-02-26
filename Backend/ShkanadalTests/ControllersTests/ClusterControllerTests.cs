@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using shkandal_api.Controllers;
 using shkandalData.DTOs.ArticleDtos;
 using shkandalData.DTOs.ClusterDtos;
 using ShkandalData.Common;
+using ShkandalData.DTOs.EventDtos;
 using ShkandalServices;
 using System;
 using System.Collections.Generic;
@@ -17,11 +19,13 @@ namespace ShkanadalTests.ControllersTests
     {
         private readonly Mock<IClusterService> _serviceMock;
         private readonly ClusterController _controller;
+        private readonly Mock<IMapper> _mapperMock;
 
         public ClusterControllerTests()
         {
             _serviceMock = new Mock<IClusterService>();
             _controller = new ClusterController(_serviceMock.Object);
+            _mapperMock = new Mock<IMapper>();
         }
 
 
@@ -113,7 +117,7 @@ namespace ShkanadalTests.ControllersTests
                 ViewCounter = 7,
                 Summary = "Some content",
                 FeaturedImageURL = "FeaturedImageURL",
-                Articles = new List<ArticleReadDto>()
+                Articles = new List<EventReadDto>()
             };
 
             _serviceMock.Setup(s => s.GetByIdAsync(7))
