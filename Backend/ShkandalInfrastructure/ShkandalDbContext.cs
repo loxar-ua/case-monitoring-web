@@ -21,6 +21,8 @@ namespace ShkandalInfrastructure
         public DbSet<Cluster> Clusters { get; set; }
         public DbSet<Media> Media { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Event> Events { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,6 +52,10 @@ namespace ShkandalInfrastructure
                       .HasForeignKey(a => a.ClusterId)
                       .OnDelete(DeleteBehavior.SetNull);
 
+                entity.HasOne(a => a.Event)
+                    .WithMany(e => e.Articles)
+                    .HasForeignKey(a => a.EventId)
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -65,6 +71,19 @@ namespace ShkandalInfrastructure
                 entity.ToTable("category");
 
                 entity.HasKey(c => c.Id);
+            });
+
+            modelBuilder.Entity<Event>(entity =>
+            {
+                entity.ToTable("event");
+
+                entity.HasKey(e => e.Id);
+                entity.Property(c => c.EventTime).HasColumnName("event_time");
+
+                entity.HasOne(e => e.Cluster)
+                     .WithMany(c => c.Events)
+                     .HasForeignKey(e => e.ClusterId)
+                     .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<Cluster>(entity =>
