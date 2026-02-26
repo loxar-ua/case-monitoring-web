@@ -23,6 +23,25 @@ namespace ShkandalInfrastructure.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "pg_trgm");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("CategoryCluster", b =>
+                {
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("integer")
+                        .HasColumnName("categoriesId");
+
+                    b.Property<int>("ClustersId")
+                        .HasColumnType("integer")
+                        .HasColumnName("clustersId");
+
+                    b.HasKey("CategoriesId", "ClustersId")
+                        .HasName("pK_categoryCluster");
+
+                    b.HasIndex("ClustersId")
+                        .HasDatabaseName("iX_categoryCluster_clustersId");
+
+                    b.ToTable("categoryCluster", (string)null);
+                });
+
             modelBuilder.Entity("ShkandalData.Models.Article", b =>
                 {
                     b.Property<int>("Id")
@@ -85,6 +104,26 @@ namespace ShkandalInfrastructure.Migrations
                         .HasDatabaseName("iX_article_mediaId");
 
                     b.ToTable("article", (string)null);
+                });
+
+            modelBuilder.Entity("ShkandalData.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pK_category");
+
+                    b.ToTable("category", (string)null);
                 });
 
             modelBuilder.Entity("ShkandalData.Models.Cluster", b =>
@@ -183,6 +222,23 @@ namespace ShkandalInfrastructure.Migrations
                         .HasName("pK_app_user");
 
                     b.ToTable("app_user", (string)null);
+                });
+
+            modelBuilder.Entity("CategoryCluster", b =>
+                {
+                    b.HasOne("ShkandalData.Models.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_categoryCluster_category_categoriesId");
+
+                    b.HasOne("ShkandalData.Models.Cluster", null)
+                        .WithMany()
+                        .HasForeignKey("ClustersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_categoryCluster_cluster_clustersId");
                 });
 
             modelBuilder.Entity("ShkandalData.Models.Article", b =>

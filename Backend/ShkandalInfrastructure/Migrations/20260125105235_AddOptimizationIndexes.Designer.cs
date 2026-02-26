@@ -12,8 +12,8 @@ using ShkandalInfrastructure;
 namespace ShkandalInfrastructure.Migrations
 {
     [DbContext(typeof(ShkandalDbContext))]
-    [Migration("20251202204904_AddIsCheckedColumn")]
-    partial class AddIsCheckedColumn
+    [Migration("20260125105235_AddOptimizationIndexes")]
+    partial class AddOptimizationIndexes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,25 @@ namespace ShkandalInfrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "pg_trgm");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("CategoryCluster", b =>
+                {
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("integer")
+                        .HasColumnName("categoriesId");
+
+                    b.Property<int>("ClustersId")
+                        .HasColumnType("integer")
+                        .HasColumnName("clustersId");
+
+                    b.HasKey("CategoriesId", "ClustersId")
+                        .HasName("pK_categoryCluster");
+
+                    b.HasIndex("ClustersId")
+                        .HasDatabaseName("iX_categoryCluster_clustersId");
+
+                    b.ToTable("categoryCluster", (string)null);
+                });
 
             modelBuilder.Entity("ShkandalData.Models.Article", b =>
                 {
@@ -73,10 +92,6 @@ namespace ShkandalInfrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("published_at");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("text")
-                        .HasColumnName("status");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text")
@@ -94,6 +109,26 @@ namespace ShkandalInfrastructure.Migrations
                     b.ToTable("article", (string)null);
                 });
 
+            modelBuilder.Entity("ShkandalData.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pK_category");
+
+                    b.ToTable("category", (string)null);
+                });
+
             modelBuilder.Entity("ShkandalData.Models.Cluster", b =>
                 {
                     b.Property<int>("Id")
@@ -103,17 +138,13 @@ namespace ShkandalInfrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Content")
-                        .HasColumnType("text")
-                        .HasColumnName("content");
-
                     b.Property<string>("FeaturedImageURL")
                         .HasColumnType("text")
                         .HasColumnName("featured_image_url");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsRelevant")
                         .HasColumnType("boolean")
-                        .HasColumnName("is_active");
+                        .HasColumnName("is_relevant");
 
                     b.Property<DateTime?>("LastUpdatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -124,18 +155,16 @@ namespace ShkandalInfrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
+                    b.Property<string>("Summary")
+                        .HasColumnType("text")
+                        .HasColumnName("summary");
+
                     b.Property<int>("ViewCounter")
                         .HasColumnType("integer")
                         .HasColumnName("view_counter");
 
                     b.HasKey("Id")
                         .HasName("pK_cluster");
-
-                    b.HasIndex("Name")
-                        .HasDatabaseName("iX_cluster_name");
-
-                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("Name"), "gin");
-                    NpgsqlIndexBuilderExtensions.HasOperators(b.HasIndex("Name"), new[] { "gin_trgm_ops" });
 
                     b.ToTable("cluster", (string)null);
                 });
@@ -196,6 +225,23 @@ namespace ShkandalInfrastructure.Migrations
                         .HasName("pK_app_user");
 
                     b.ToTable("app_user", (string)null);
+                });
+
+            modelBuilder.Entity("CategoryCluster", b =>
+                {
+                    b.HasOne("ShkandalData.Models.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_categoryCluster_category_categoriesId");
+
+                    b.HasOne("ShkandalData.Models.Cluster", null)
+                        .WithMany()
+                        .HasForeignKey("ClustersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fK_categoryCluster_cluster_clustersId");
                 });
 
             modelBuilder.Entity("ShkandalData.Models.Article", b =>
