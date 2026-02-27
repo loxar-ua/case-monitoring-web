@@ -21,10 +21,17 @@ a { color: var(--text);
     text-decoration: none;
 }
 
-h3 { margin-left: 20px;
+h3 { margin-left: 12%;
+  color: var(--title)
 }
 
-h4 { margin-left: 20px;
+h4 {
+  margin-left: 2%;
+  font-size: 19px;
+}
+
+p { margin: 0 12% 10px 12%;
+  color: var(--text);
 }
 
 html, body, #root {
@@ -41,3 +48,5 @@ html, body, #root {
 .app-content {
   flex: 1;
 }
+
+

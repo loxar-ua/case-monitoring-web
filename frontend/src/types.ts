@@ -19,7 +19,7 @@ export type ArticleReadDto = {
   featuredImageURL: string;
   author: string;
   content: string;
-  publishedAt: string; // ISO string з бекенду
+  publishedAt: string;
   isChecked: boolean;
 };
 
@@ -29,5 +29,20 @@ export type ClusterDetailedReadDto = {
   viewCounter: number;
   summary?: string;
   featuredImageURL?: string;
-  articles: ArticleReadDto[];
+  events: EventWithArticlesReadDto[];
+};
+
+export type EventReadDto = { 
+  id: number; 
+  title: string; 
+  description?: string; 
+  eventTime?: string;  
+}; 
+
+export type EventWithArticlesReadDto = { 
+  id: number; 
+  title: string; 
+  description?: string; 
+  eventTime?: string; 
+  articles: ArticleReadDto[]; 
 };

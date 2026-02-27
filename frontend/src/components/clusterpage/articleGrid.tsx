@@ -47,7 +47,7 @@ export default function ArticleGrid({ articles }: Props) {
     <div className="timeline-list">
       {Object.entries(daysByYear).map(([year, days]) => (
         <div key={year}>
-          <h2>{year}</h2>
+          <h4>{year}</h4>
           {days.map(({ key, label, dayArticles }) => (
             <div key={key}>
               <span className="timeline-date">{label}</span>
