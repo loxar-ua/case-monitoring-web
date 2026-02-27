@@ -50,7 +50,7 @@ namespace ShkanadalTests.ServicesTests
                 Id = 2,
                 Title = "Test Event",
                 Description = "Desc",
-                EventTime = new DateTime(2025, 6, 1),
+                Date = new DateTime(2025, 6, 1),
                 Articles = new List<Article>
                 {
                     new Article
@@ -73,7 +73,7 @@ namespace ShkanadalTests.ServicesTests
                 Id = evt.Id,
                 Title = evt.Title,
                 Description = evt.Description,
-                EventTime = evt.EventTime,
+                EventTime = evt.Date,
                 Articles = evt.Articles
                     .Select(a => new ArticleReadDto
                     {

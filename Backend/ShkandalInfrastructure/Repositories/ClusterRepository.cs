@@ -34,7 +34,8 @@ namespace ShkandalInfrastructure.Repositories
         {
             return await _dbSet
                 .AsNoTracking()
-                .Include(c => c.Events.OrderByDescending(a => a.EventTime))
+                .Include(c => c.Events.OrderBy(a => a.Date))
+                    .ThenInclude(e => e.Articles)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
