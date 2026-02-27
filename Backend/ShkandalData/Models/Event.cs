@@ -11,7 +11,7 @@ namespace ShkandalData.Models
         public int Id { get; set; }
         public required string Title { get; set; }
         public string Description { get; set; }
-        public DateTime? EventTime { get; set; }
+        public DateTime? Date { get; set; }
         public int? ClusterId { get; set; }
         public Cluster? Cluster { get; set; }
         public ICollection<Article> Articles { get; set; } = new List<Article>();

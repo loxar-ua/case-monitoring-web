@@ -35,6 +35,7 @@ namespace ShkandalInfrastructure
                 entity.HasKey(a => a.Id);
                 entity.Property(a => a.MediaId).HasColumnName("media_id");
                 entity.Property(a => a.ClusterId).HasColumnName("cluster_id");
+                entity.Property(a => a.EventId).HasColumnName("event_id");
                 entity.Property(a => a.FeaturedImageURL).HasColumnName("featured_image_url");
                 entity.Property(a => a.IsRelevant).HasColumnName("is_relevant");
                 entity.Property(a => a.PublishedAt).HasColumnName("published_at");
@@ -78,7 +79,7 @@ namespace ShkandalInfrastructure
                 entity.ToTable("event");
 
                 entity.HasKey(e => e.Id);
-                entity.Property(c => c.EventTime).HasColumnName("event_time");
+                entity.Property(e => e.ClusterId).HasColumnName("cluster_id");
 
                 entity.HasOne(e => e.Cluster)
                      .WithMany(c => c.Events)
