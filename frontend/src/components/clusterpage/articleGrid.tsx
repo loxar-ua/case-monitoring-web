@@ -7,7 +7,7 @@ type Props = {
   articles: ArticleReadDto[];
 };
 
-const DAYS_PER_PAGE = 2;
+const DAYS_PER_PAGE = 3;
 
 export default function ArticleGrid({ articles }: Props) {
   const [page, setPage] = useState(1);

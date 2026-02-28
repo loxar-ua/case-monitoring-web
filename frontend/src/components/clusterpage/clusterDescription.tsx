@@ -1,13 +1,25 @@
 import "./clusterDescription.css";
+import type { EventWithArticlesReadDto } from "../../types";
+import EventCard from "./eventCard";
+import { useState } from "react";
 
 type Props = {
   title: string;
   views: number;
   image?: string;
-  summary?: string;
+  events?: EventWithArticlesReadDto[];
 };
 
-export default function ClusterDescription({ title, views, image, summary }: Props) {
+export default function ClusterDescription({ title, views, image, events }: Props) {
+  const [openEvents, setOpenEvents] = useState<Record<number, boolean>>({}); 
+  
+  const toggleArticles = (eventId: number) => { 
+    setOpenEvents(prev => ({ 
+      ...prev, 
+      [eventId]: !prev[eventId], 
+    })); 
+  };
+
   return (
     <section className="cluster-description">
       <h1 className="cluster-title">{title}</h1>
@@ -19,15 +31,18 @@ export default function ClusterDescription({ title, views, image, summary }: Pro
         </div>
       )}
 
-      {summary && (
-        <div className="cluster-text-block">
-           <div
-      className="cluster-description-text"
-      dangerouslySetInnerHTML={{ __html: summary }}
-    ></div>
-          <div className="cluster-ai-footer">Згенеровано ШІ</div>
+      {events && events.length > 0 && (
+        <div className="cluster-events-block">
+          {events.map(event => (
+            <EventCard
+              key={event.id}
+              event={event}
+              isOpen={openEvents[event.id] || false}
+              toggle={toggleArticles}
+            />
+          ))}
         </div>
-      )}
+      )} 
     </section>
   );
 }
