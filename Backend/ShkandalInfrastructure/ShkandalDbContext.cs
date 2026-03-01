@@ -97,7 +97,26 @@ namespace ShkandalInfrastructure
                 entity.Property(c => c.LastUpdatedAt).HasColumnName("last_updated_at");
 
                 entity.HasMany(c => c.Categories)
-                   .WithMany(ca => ca.Clusters);
+                      .WithMany(ca => ca.Clusters)
+                      .UsingEntity<Dictionary<string, object>>(
+                          "cluster_category",
+                          r => r.HasOne<Category>()
+                                .WithMany()
+                                .HasForeignKey("category_id")
+                                .HasConstraintName("fk_cluster_category_category_id")
+                                .OnDelete(DeleteBehavior.Cascade),
+                          l => l.HasOne<Cluster>()
+                                .WithMany()
+                                .HasForeignKey("cluster_id")
+                                .HasConstraintName("fk_cluster_category_cluster_id")
+                                .OnDelete(DeleteBehavior.Cascade),
+                          je =>
+                          {
+                              je.HasKey("cluster_id", "category_id").HasName("pk_cluster_category");
+                              je.ToTable("cluster_category");
+                              je.IndexerProperty<int>("cluster_id").HasColumnName("cluster_id");
+                              je.IndexerProperty<int>("category_id").HasColumnName("category_id");
+                          });
             });
 
 

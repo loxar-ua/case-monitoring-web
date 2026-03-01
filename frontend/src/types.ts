@@ -11,6 +11,11 @@ export type MediaReadDto = {
   name: string;
 };
 
+export type CategoryReadDto = {
+  id: number;
+  name: string;
+};
+
 export type ArticleReadDto = {
   id: number;
   media: MediaReadDto;
@@ -37,6 +42,9 @@ export type EventReadDto = {
   title: string; 
   description?: string; 
   eventTime?: string;  
+  // backend may send `date` or `Date` depending on serializer settings
+  date?: string;
+  Date?: string;
 }; 
 
 export type EventWithArticlesReadDto = { 
@@ -44,5 +52,7 @@ export type EventWithArticlesReadDto = {
   title: string; 
   description?: string; 
   eventTime?: string; 
+  date?: string;
+  Date?: string;
   articles: ArticleReadDto[]; 
 };

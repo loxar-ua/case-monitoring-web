@@ -36,6 +36,7 @@ namespace ShkandalInfrastructure.Repositories
                 .AsNoTracking()
                 .Include(c => c.Events.OrderBy(a => a.Date))
                     .ThenInclude(e => e.Articles)
+                        .ThenInclude(a => a.Media)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 

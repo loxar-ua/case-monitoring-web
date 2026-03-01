@@ -73,7 +73,7 @@ namespace ShkanadalTests.ServicesTests
                 Id = evt.Id,
                 Title = evt.Title,
                 Description = evt.Description,
-                EventTime = evt.Date,
+                Date = evt.Date,
                 Articles = evt.Articles
                     .Select(a => new ArticleReadDto
                     {
@@ -100,7 +100,7 @@ namespace ShkanadalTests.ServicesTests
             Assert.NotNull(result);
             Assert.Equal(2, result.Id);
             Assert.Equal("Test Event", result.Title);
-            Assert.Equal(new DateTime(2025, 6, 1), result.EventTime);
+            Assert.Equal(new DateTime(2025, 6, 1), result.Date);
             Assert.Single(result.Articles);
             Assert.Equal(10, result.Articles.First().Id);
         }
