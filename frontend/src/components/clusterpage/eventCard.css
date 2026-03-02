@@ -4,8 +4,8 @@
     margin: 1.5rem auto;
     padding: 1.5rem;
     border-radius: 10px; 
-    background: #f8f8f8;
-    box-shadow: 0 0px 10px rgb(231, 231, 231);
+    background: var(--bg);
+    box-shadow: 0 0px 10px var(--event);
     transition: transform 0.2s ease, box-shadow 0.2s ease; 
     display: block;
 }
@@ -30,6 +30,7 @@
   font-size: 0.9rem;
   color: #555;
   margin-bottom: 0.5rem;
+  margin-left: 1rem;
 }
 
 .statti{

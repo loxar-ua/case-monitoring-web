@@ -1,4 +1,3 @@
-// src/types.ts
 export type ClusterReadDto = {
   id: number;
   name: string;
