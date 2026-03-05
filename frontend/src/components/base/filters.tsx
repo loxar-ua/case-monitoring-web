@@ -17,7 +17,6 @@ export default function Filters({
   onCategoryChange,
 }: NewsFiltersProps) {
   
-  // Масив для зручного рендеру кнопок сортування
   const sortOptions = [
     { value: "", label: "За замовчуванням" },
     { value: "popular", label: "Популярні" },
