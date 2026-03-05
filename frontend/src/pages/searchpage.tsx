@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
+import Filters from "../components/base/filters"; // Імпорт винесених фільтрів
 import NewsPageLayout from "../layouts/newsPageLayout.tsx";
 import type { ClusterReadDto, CategoryReadDto } from "../types.ts";
 
@@ -8,24 +9,23 @@ const ITEMS_PER_PAGE = 12;
 export default function SearchPage() {
   const [results, setResults] = useState<ClusterReadDto[]>([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [categories, setCategories] = useState<CategoryReadDto[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get("query") || "";
   const page = parseInt(searchParams.get("page") || "1", 10);
-  const initialSort = searchParams.get("sortBy") || "";
-  const [sortBy, setSortBy] = useState(initialSort);
-  const initialCategory = searchParams.get("categoryId") || "";
-  const [categoryId, setCategoryId] = useState(initialCategory);
-  const [categories, setCategories] = useState<CategoryReadDto[]>([]);
+  const sortBy = searchParams.get("sortBy") || "";
+  const categoryId = searchParams.get("categoryId") || "";
 
   useEffect(() => {
-    if (!query) return;
-
-    // load categories once
     fetch(`/api/Category`)
       .then((res) => res.json())
       .then((data: CategoryReadDto[]) => setCategories(data))
-      .catch((err) => console.error("Помилка завантаження категорій:", err));
+      .catch((err) => console.error("Помилка категорій:", err));
+  }, []);
+
+  useEffect(() => {
+    if (!query) return;
 
     const params = new URLSearchParams();
     params.set("name", query);
@@ -44,48 +44,32 @@ export default function SearchPage() {
   }, [query, page, sortBy, categoryId]);
 
   const changePage = (newPage: number) => {
-    setSearchParams({ query, page: String(newPage), ...(sortBy ? { sortBy } : {}), ...(categoryId ? { categoryId } : {}) });
+    setSearchParams({ query, page: String(newPage), sortBy, categoryId });
   };
 
   const changeSort = (value: string) => {
-    setSortBy(value);
-    setSearchParams({ query, page: "1", ...(value ? { sortBy: value } : {}), ...(categoryId ? { categoryId } : {}) });
+    setSearchParams({ query, page: "1", sortBy: value, categoryId });
   };
 
   const changeCategory = (value: string) => {
-    setCategoryId(value);
-    setSearchParams({ query, page: "1", ...(sortBy ? { sortBy } : {}), ...(value ? { categoryId: value } : {}) });
+    setSearchParams({ query, page: "1", sortBy, categoryId: value });
   };
 
   return (
     <div className="search-page">
-      <h4><Link to="/" className="back-home">
-        ← На головну
-      </Link></h4>
+      <h4>
+        <Link to="/" className="back-home">← На головну</Link>
+      </h4>
+      
       <h3>Результати пошуку для: {query}</h3>
 
-      <div className="controls">
-        <div className="sort-control">
-          <label htmlFor="sortBy">Сортування:&nbsp;</label>
-          <select id="sortBy" value={sortBy} onChange={(e) => changeSort(e.target.value)}>
-            <option value="">За замовчуванням</option>
-            <option value="popular">Популярні</option>
-            <option value="unpopular">Непопулярні</option>
-            <option value="newest">Нові</option>
-            <option value="oldest">Старі</option>
-          </select>
-        </div>
-
-        <div className="category-control">
-          <label htmlFor="categoryId">Категорія:&nbsp;</label>
-          <select id="categoryId" value={categoryId} onChange={(e) => changeCategory(e.target.value)}>
-            <option value="">Усі</option>
-            {categories.map((c) => (
-              <option key={c.id} value={String(c.id)}>{c.name}</option>
-            ))}
-          </select>
-        </div>
-      </div>
+      <Filters 
+        sortBy={sortBy}
+        categoryId={categoryId}
+        categories={categories}
+        onSortChange={changeSort}
+        onCategoryChange={changeCategory}
+      />
 
       <NewsPageLayout
         news={results}
