@@ -73,7 +73,7 @@ namespace ShkanadalTests.ServicesTests
                 Id = evt.Id,
                 Title = evt.Title,
                 Description = evt.Description,
-                Date = evt.Date,
+
                 Articles = evt.Articles
                     .Select(a => new ArticleReadDto
                     {
