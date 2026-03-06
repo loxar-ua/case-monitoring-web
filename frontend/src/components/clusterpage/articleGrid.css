@@ -1,9 +1,9 @@
  .timeline-list {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  padding: 0 5%;
-  margin-top: 40px;
+  gap: 10px;
+  padding: 0 1rem;
+  margin-top: 5px;
 }
 
 .timeline-date {
@@ -32,7 +32,6 @@
   border-radius: 4px;
 }
 
-/* Твої стилі картки лишаються */
 .article-card {
   flex: 0 0 auto;
   width: 450px;
@@ -104,3 +103,6 @@
   color: var(--muted);
 }
 
+.timeline-list .pagination {
+  margin-top: 0px;
+}

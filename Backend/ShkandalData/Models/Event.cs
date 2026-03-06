@@ -15,6 +15,5 @@ namespace ShkandalData.Models
         public int? ClusterId { get; set; }
         public Cluster? Cluster { get; set; }
         public ICollection<Article> Articles { get; set; } = new List<Article>();
-
     }
 }

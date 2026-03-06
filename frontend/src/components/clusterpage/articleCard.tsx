@@ -22,9 +22,8 @@ export default function ArticleCard({ item }: Props) {
 
         <div className="article-meta">
           <span className="article-source">
-            {item.media?.name ?? "Джерело"}
+            Джерело: {item.media?.name ?? "–"}
           </span>
-           <span className="article-author">{item.author}</span>
         </div>
       </div>
     </a>

@@ -6,6 +6,7 @@
   --muted: #958da5;
   --accent: #eeeeee;
   --shadow: rgba(200, 200, 200, 0.2);
+  --event: rgba(231, 231, 231);
 
   --focus-shadow: rgba(149, 141, 165, 0.12);
   --focus-border: rgba(165, 161, 141, 0.28);
@@ -13,12 +14,13 @@
 
 html.dark {
   --bg: #212121;
-  --footer: #57525f;
-  --title: #f8f8f8;
-  --text: #958da5;
-  --muted: #a9a9b0;
+  --footer: #66636c;
+  --title: #e3e3e3;
+  --text: #b2aeb7;
+  --muted: #66636c;
   --accent: #292929;
-  --shadow: rgba(200, 200, 200, 0.2);
+  --shadow: rgba(0, 0, 0, 0.2);
+  --event: #101010;
 
   --focus-shadow: rgba(255, 255, 255, 0.1);
   --focus-border: rgba(255, 255, 255, 0.3);

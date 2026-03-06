@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ClusterDescription from "../components/clusterpage/clusterDescription";
-import ArticleGrid from "../components/clusterpage/articleGrid";
 import type { ClusterDetailedReadDto } from "../types";
 
 export default function ClusterPage() {
@@ -12,7 +11,6 @@ export default function ClusterPage() {
 
   useEffect(() => {
     if (!id) return;
-
     const loadCluster = async () => {
       try {
         const res = await fetch(`/api/Cluster/${id}`);
@@ -27,7 +25,6 @@ export default function ClusterPage() {
         setLoading(false);
       }
     };
-
     loadCluster();
   }, [id]);
 
@@ -40,9 +37,8 @@ export default function ClusterPage() {
         title={cluster.name}
         views={cluster.viewCounter}
         image={cluster.featuredImageURL}
-        summary={cluster.summary}
+        events={cluster.events}
       />
-      <ArticleGrid articles={cluster.articles} />
     </div>
   );
 }

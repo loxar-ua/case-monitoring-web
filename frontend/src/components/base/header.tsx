@@ -4,6 +4,7 @@ import DarkTheme from "./../images/dark_theme.svg?react";
 import { useTheme } from "../../context/themeContext";
 import { useNavigate } from "react-router-dom"; 
 import type { ChangeEvent } from "react";
+import { Link } from "react-router-dom"; 
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
@@ -14,11 +15,13 @@ export default function Header() {
   return (
     <header className="app-header" role="banner">
       <div className="header-inner">
-        <img
-          src="/src/components/images/logo.svg"
-          alt="Шкандаль"
-          className="header-logo"
-        />
+        <Link to="/" className="header-logo-link"> 
+          <img 
+            src="/src/components/images/logo.svg" 
+            alt="Шкандаль" 
+            className="header-logo" 
+            /> 
+        </Link>
 
         <form
           className="search-form"

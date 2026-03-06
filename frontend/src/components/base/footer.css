@@ -4,7 +4,6 @@
   background: var(--footer);
   box-shadow: 0 -3px 10px var(--shadow);
   padding: 20px 0px;
-  color: var(--bg);
   position: static;
 }
 
@@ -13,11 +12,6 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-}
-
-.footer-logo {
-  height: 18px;
-  width: auto;
 }
 
 .footer-socials {
@@ -35,4 +29,9 @@
 
 .footer-socials a:hover {
   opacity: 0.7;
+}
+
+.footer-copy p {
+  color: var(--bg);
+  font-size: 14px;
 }
