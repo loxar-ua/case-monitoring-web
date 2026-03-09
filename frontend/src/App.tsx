@@ -5,7 +5,7 @@ import ClusterPage from "./pages/clusterpage";
 import SearchPage from "./pages/searchpage";
 import "./styles/global.css";
 import "./styles/variables.css";
-import { ThemeProvider } from "./context/themeContext";
+import { ThemeProvider } from "./context/themeProvider";
 
 function App() {
   return (

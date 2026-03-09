@@ -41,7 +41,6 @@ export type EventReadDto = {
   title: string; 
   description?: string; 
   eventTime?: string;  
-  // backend may send `date` or `Date` depending on serializer settings
   date?: string;
   Date?: string;
 }; 

@@ -13,7 +13,6 @@ export default function NewsPageLayout({ news, page, totalPages, changePage }: P
     <div className="homepage">
       <NewsList news={news} />
 
-      {/* pagination */}
       <section className="pagination">
         <button disabled={page === 1} onClick={() => changePage(page - 1)}>«</button>
 
