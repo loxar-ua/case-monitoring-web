@@ -1,0 +1,78 @@
+.live-alerts-root {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 320px;
+  pointer-events: none;
+}
+
+.live-alerts-status {
+  background: rgba(25, 118, 210, 0.95);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+}
+
+.live-alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.live-alert-card {
+  background: #ffffff;
+  color: #1e1e1e;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 14px 16px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  animation: liveAlertFadeIn 0.25s ease-out;
+  pointer-events: auto;
+}
+
+.live-alert-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.live-alert-dismiss {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.live-alert-dismiss:hover {
+  color: #111827;
+}
+
+.live-alert-description {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333333;
+}
+
+@keyframes liveAlertFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

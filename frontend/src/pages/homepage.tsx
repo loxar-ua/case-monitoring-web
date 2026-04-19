@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Start from "../components/homepage/start.tsx"; 
 import NewsPageLayout from "../layouts/newsPageLayout.tsx";
+import { fetchClusters } from "../services/apiService.ts";
 import type { ClusterReadDto } from "../types.ts";
 import "./homepage.css";
 
@@ -15,13 +16,25 @@ export default function HomePage() {
   const [page, setPage] = useState(initialPage);
 
   useEffect(() => {
-    fetch(`/api/Cluster?pageNumber=${page}&pageSize=${ITEMS_PER_PAGE}`)
-      .then(res => res.json())
-      .then((data: { items: ClusterReadDto[]; totalPages: number }) => {
+    const controller = new AbortController();
+
+    async function loadClusters() {
+      try {
+        const data = await fetchClusters(page, ITEMS_PER_PAGE, controller.signal);
         setAllNews(data.items);
         setTotalPages(data.totalPages);
-      })
-      .catch(err => console.error("Помилка завантаження новин:", err));
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
+        console.error("Помилка завантаження новин:", error);
+      }
+    }
+
+    loadClusters();
+
+    return () => controller.abort();
   }, [page]);
 
   const changePage = (newPage: number) => {
