@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useWebSocket } from "../hooks/useWebSocket.ts";
 import "./LiveAlerts.css";
 
-const WEBSOCKET_URL = "ws://localhost:5000/ws/alerts";
+const WEBSOCKET_URL = "ws://localhost:5261/ws/alerts";
 const AUTO_HIDE_MS = 8000;
 
 type AlertItem = {
@@ -32,26 +32,31 @@ function normalizeMessage(message: unknown) {
 
   if (typeof message === "object") {
     const payload = message as Record<string, unknown>;
-    const title =
-      typeof payload.title === "string"
-        ? payload.title
-        : typeof payload.type === "string"
-        ? payload.type
-        : "Новий алерт";
-    const description =
-      typeof payload.message === "string"
-        ? payload.message
-        : typeof payload.body === "string"
-        ? payload.body
-        : JSON.stringify(payload);
+    let title = "Новий алерт";
+    if (typeof payload.title === "string") {
+      title = payload.title;
+    } else if (typeof payload.type === "string") {
+      title = payload.type;
+    }
+
+    let description = JSON.stringify(payload);
+    if (typeof payload.message === "string") {
+      description = payload.message;
+    } else if (typeof payload.body === "string") {
+      description = payload.body;
+    }
 
     return { title, description };
   }
 
   return {
     title: "Новий алерт",
-    description: String(message),
+    description: JSON.stringify(message),
   };
+}
+
+function removeAlertById(items: AlertItem[], alertId: string) {
+  return items.filter((item) => item.id !== alertId);
 }
 
 export default function LiveAlerts() {
@@ -93,17 +98,17 @@ export default function LiveAlerts() {
 
     setAlerts((current) => [newAlert, ...current]);
 
-    const autoHide = window.setTimeout(() => {
-      setAlerts((current) => current.filter((item) => item.id !== newAlert.id));
+    const autoHide = globalThis.setTimeout(() => {
+      setAlerts((current) => removeAlertById(current, newAlert.id));
     }, AUTO_HIDE_MS);
 
     return () => {
-      window.clearTimeout(autoHide);
+      globalThis.clearTimeout(autoHide);
     };
   }, [lastMessage]);
 
   const dismissAlert = (alertId: string) => {
-    setAlerts((current) => current.filter((item) => item.id !== alertId));
+    setAlerts((current) => removeAlertById(current, alertId));
   };
 
   return (
