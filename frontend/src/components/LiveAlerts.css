@@ -1,0 +1,93 @@
+.live-alerts-root {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(340px, calc(100vw - 40px));
+  pointer-events: none;
+}
+
+.live-alerts-status {
+  display: inline-flex;
+  align-self: flex-end;
+  width: fit-content;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.94));
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+  pointer-events: auto;
+}
+
+.live-alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.live-alert-card {
+  background: linear-gradient(180deg, rgba(17, 24, 39, 0.96), rgba(15, 23, 42, 0.96));
+  color: #f8fafc;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  padding: 12px 14px;
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(14px);
+  animation: liveAlertFadeIn 0.28s ease-out;
+  pointer-events: auto;
+}
+
+.live-alert-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.live-alert-title {
+  font-size: 0.92rem;
+  line-height: 1.2;
+  font-weight: 700;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.live-alert-dismiss {
+  background: transparent;
+  border: none;
+  color: rgba(248, 250, 252, 0.7);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.live-alert-dismiss:hover {
+  color: #ffffff;
+}
+
+.live-alert-description {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(226, 232, 240, 0.86);
+}
+
+@keyframes liveAlertFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

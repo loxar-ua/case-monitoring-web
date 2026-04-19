@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import Start from "../components/homepage/start.tsx";
 import Filters from "../components/base/filters";
 import NewsPageLayout from "../layouts/newsPageLayout.tsx";
+import { fetchCategories, fetchClusters } from "../services/apiService.ts";
 import type { ClusterReadDto, CategoryReadDto } from "../types.ts";
 import "./homepage.css";
 
@@ -19,26 +20,53 @@ export default function HomePage() {
   const categoryId = searchParams.get("categoryId") || "";
 
   useEffect(() => {
-    fetch(`/api/Category`)
-      .then((res) => res.json())
-      .then((data: CategoryReadDto[]) => setCategories(data))
-      .catch((err) => console.error("Помилка категорій:", err));
+    const controller = new AbortController();
+
+    async function loadCategories() {
+      try {
+        const data = await fetchCategories(controller.signal);
+        setCategories(data);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
+        console.error("Помилка категорій:", error);
+      }
+    }
+
+    loadCategories();
+
+    return () => controller.abort();
   }, []);
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    params.set("pageNumber", String(page));
-    params.set("pageSize", String(ITEMS_PER_PAGE));
-    if (sortBy) params.set("sortBy", sortBy);
-    if (categoryId) params.set("categoryId", categoryId);
+    const controller = new AbortController();
 
-    fetch(`/api/Cluster?${params.toString()}`)
-      .then((res) => res.json())
-      .then((data: { items: ClusterReadDto[]; totalPages: number }) => {
+    async function loadClusters() {
+      try {
+        const data = await fetchClusters({
+          page,
+          pageSize: ITEMS_PER_PAGE,
+          sortBy,
+          categoryId,
+          signal: controller.signal,
+        });
+
         setAllNews(data.items);
         setTotalPages(data.totalPages);
-      })
-      .catch((err) => console.error("Помилка новин:", err));
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
+        console.error("Помилка новин:", error);
+      }
+    }
+
+    loadClusters();
+
+    return () => controller.abort();
   }, [page, sortBy, categoryId]);
 
   const updateParams = (newParams: Record<string, string>) => {

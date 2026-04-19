@@ -4,6 +4,14 @@ import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
   plugins: [react(), svgr()],
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./src/test/setup.ts"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+    },
+  },
   server: {
     proxy: {
       "/api": {

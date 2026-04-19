@@ -2,8 +2,8 @@ using EFCore.NamingConventions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using shkandal_api.Infrastructure;
 using shkandalData;
-using ShkandalData.Models;
 using ShkandalInfrastructure;
 using ShkandalInfrastructure.Repositories;
 using ShkandalServices;
@@ -68,6 +68,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+var wsClients = app.MapAlertWebSocket();
+app.StartRandomClusterAlerts(wsClients);
 
 app.UseCors("Frontend");
 
@@ -76,4 +78,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
