@@ -1,16 +1,38 @@
-import type { ClusterReadDto } from "../types.ts";
+import type { CategoryReadDto, ClusterReadDto } from "../types.ts";
 
 export type ClusterListResponse = {
   items: ClusterReadDto[];
   totalPages: number;
 };
 
-export async function fetchClusters(
-  page: number,
-  pageSize: number,
-  signal?: AbortSignal,
-): Promise<ClusterListResponse> {
-  const url = `/api/Cluster?pageNumber=${encodeURIComponent(page)}&pageSize=${encodeURIComponent(pageSize)}`;
+export type FetchClustersOptions = {
+  page: number;
+  pageSize: number;
+  sortBy?: string;
+  categoryId?: string;
+  signal?: AbortSignal;
+};
+
+export async function fetchClusters({
+  page,
+  pageSize,
+  sortBy,
+  categoryId,
+  signal,
+}: FetchClustersOptions): Promise<ClusterListResponse> {
+  const params = new URLSearchParams();
+  params.set("pageNumber", String(page));
+  params.set("pageSize", String(pageSize));
+
+  if (sortBy) {
+    params.set("sortBy", sortBy);
+  }
+
+  if (categoryId) {
+    params.set("categoryId", categoryId);
+  }
+
+  const url = `/api/Cluster?${params.toString()}`;
 
   try {
     const response = await fetch(url, {
@@ -38,6 +60,35 @@ export async function fetchClusters(
     return data;
   } catch (error) {
     console.error("Error fetching cluster list:", error);
+    throw error;
+  }
+}
+
+export async function fetchCategories(
+  signal?: AbortSignal,
+): Promise<CategoryReadDto[]> {
+  try {
+    const response = await fetch("/api/Category", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+      },
+      signal,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch categories: ${response.status} ${response.statusText}`);
+    }
+
+    const data = (await response.json()) as CategoryReadDto[] | null;
+
+    if (!data || !Array.isArray(data)) {
+      throw new Error("Invalid response shape from /api/Category");
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
     throw error;
   }
 }

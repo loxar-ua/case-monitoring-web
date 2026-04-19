@@ -9,6 +9,6 @@ namespace shkandalData.DTOs.ClusterDtos
         public int ViewCounter { get; set; }
         public string? Summary { get; set; }
         public string? FeaturedImageURL { get; set; }
-        public ICollection<EventReadDto> Articles { get; set; } = new List<EventReadDto>();
+        public ICollection<EventWithArticlesReadDto> Events { get; set; } = new List<EventWithArticlesReadDto>();
     }
 }

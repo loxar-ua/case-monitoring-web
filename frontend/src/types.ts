@@ -1,4 +1,3 @@
-// src/types.ts
 export type ClusterReadDto = {
   id: number;
   name: string;
@@ -11,6 +10,11 @@ export type MediaReadDto = {
   name: string;
 };
 
+export type CategoryReadDto = {
+  id: number;
+  name: string;
+};
+
 export type ArticleReadDto = {
   id: number;
   media: MediaReadDto;
@@ -19,7 +23,7 @@ export type ArticleReadDto = {
   featuredImageURL: string;
   author: string;
   content: string;
-  publishedAt: string; // ISO string з бекенду
+  publishedAt: string;
   isChecked: boolean;
 };
 
@@ -29,5 +33,25 @@ export type ClusterDetailedReadDto = {
   viewCounter: number;
   summary?: string;
   featuredImageURL?: string;
-  articles: ArticleReadDto[];
+  events: EventWithArticlesReadDto[];
+};
+
+export type EventReadDto = { 
+  id: number; 
+  title: string; 
+  description?: string; 
+  eventTime?: string;  
+  // backend may send `date` or `Date` depending on serializer settings
+  date?: string;
+  Date?: string;
+}; 
+
+export type EventWithArticlesReadDto = { 
+  id: number; 
+  title: string; 
+  description?: string; 
+  eventTime?: string; 
+  date?: string;
+  Date?: string;
+  articles: ArticleReadDto[]; 
 };

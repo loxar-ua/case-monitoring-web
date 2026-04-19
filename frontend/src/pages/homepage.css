@@ -18,3 +18,44 @@
   background: var(--text);
   color: var(--bg);
 }
+
+.controls {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: var(--accent);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px var(--shadow);
+}
+
+.sort-control,
+.category-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-control label,
+.category-control label {
+  font-weight: 600;
+  color: var(--title);
+}
+
+.controls select {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.controls select:focus {
+  outline: none;
+  border-color: var(--focus-border);
+  box-shadow: 0 0 0 3px var(--focus-shadow);
+}
