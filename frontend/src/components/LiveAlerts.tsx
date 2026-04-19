@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useWebSocket } from "../hooks/useWebSocket.ts";
 import "./LiveAlerts.css";
 
-const WEBSOCKET_URL = "ws://localhost:5261/ws/alerts";
+const WEBSOCKET_URL = "wss://localhost:7259/ws/alerts";
 const AUTO_HIDE_MS = 8000;
 
 type AlertItem = {
@@ -118,7 +118,7 @@ export default function LiveAlerts() {
         {alerts.map((alert) => (
           <div key={alert.id} className="live-alert-card">
             <div className="live-alert-card-header">
-              <strong>{alert.title}</strong>
+              <strong className="live-alert-title">{alert.title}</strong>
               <button
                 type="button"
                 className="live-alert-dismiss"

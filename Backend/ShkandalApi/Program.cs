@@ -2,13 +2,12 @@ using EFCore.NamingConventions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using shkandal_api.Infrastructure;
 using shkandalData;
-using ShkandalData.Models;
 using ShkandalInfrastructure;
 using ShkandalInfrastructure.Repositories;
 using ShkandalServices;
 using System.Text;
-using System.Net.WebSockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,39 +68,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseHttpsRedirection();
-
-app.UseWebSockets();
-
-app.Map("/ws/alerts", async context =>
-{
-    if (!context.WebSockets.IsWebSocketRequest)
-    {
-        context.Response.StatusCode = StatusCodes.Status400BadRequest;
-        await context.Response.WriteAsync("WebSocket request expected.");
-        return;
-    }
-
-    using var socket = await context.WebSockets.AcceptWebSocketAsync();
-
-    var connectedMessage = Encoding.UTF8.GetBytes("{\"title\":\"Connected\",\"message\":\"WebSocket alerts channel is active.\"}");
-    await socket.SendAsync(connectedMessage, WebSocketMessageType.Text, true, CancellationToken.None);
-
-    var buffer = new byte[4096];
-
-    while (socket.State == WebSocketState.Open)
-    {
-        var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-
-        if (result.MessageType == WebSocketMessageType.Close)
-        {
-            await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Client closed connection", CancellationToken.None);
-            break;
-        }
-
-        // Echo payload back so the frontend toast can be tested without extra backend logic.
-        await socket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), WebSocketMessageType.Text, result.EndOfMessage, CancellationToken.None);
-    }
-});
+var wsClients = app.MapAlertWebSocket();
+app.StartRandomClusterAlerts(wsClients);
 
 app.UseCors("Frontend");
 
