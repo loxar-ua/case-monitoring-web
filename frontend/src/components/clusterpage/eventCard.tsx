@@ -23,7 +23,7 @@ export default function EventCard({ event }: Props) {
         month: "long",
         year: "numeric",
       });
-    } catch (e) {
+    } catch {
       return dateString;
     }
   };

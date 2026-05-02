@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Monitoring System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <button id="nav-home" class="nav-btn">Головна</button>
+            <div id="category-list"></div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <div id="loader" class="hidden">Завантаження...</div>
+        <div id="error-message" class="error"></div>
+        <section id="app-root"></section>
+    </main>
+
+    <script src="app.js" type="module"></script>
+</body>
+</html>

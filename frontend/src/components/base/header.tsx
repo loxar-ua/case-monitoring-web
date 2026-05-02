@@ -1,7 +1,7 @@
 import "./header.css";
 import LightTheme from "./../images/light_theme.svg?react";
 import DarkTheme from "./../images/dark_theme.svg?react";
-import { useTheme } from "../../context/themeContext";
+import { useTheme } from "../../context/useTheme";
 import { useNavigate } from "react-router-dom"; 
 import type { ChangeEvent } from "react";
 import { Link } from "react-router-dom"; 

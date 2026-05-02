@@ -10,6 +10,8 @@
 
   --focus-shadow: rgba(149, 141, 165, 0.12);
   --focus-border: rgba(165, 161, 141, 0.28);
+
+  --chat-shadow: #969696;
 }
 
 html.dark {
@@ -24,4 +26,6 @@ html.dark {
 
   --focus-shadow: rgba(255, 255, 255, 0.1);
   --focus-border: rgba(255, 255, 255, 0.3);
+
+  --chat-shadow: #000000;
 }
