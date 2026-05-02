@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ClusterDescription from "../components/clusterpage/clusterDescription";
 import type { ClusterDetailedReadDto } from "../types";
+import EventChat from "../components/clusterpage/eventChat";
 
 export default function ClusterPage() {
   const { id } = useParams<{ id: string }>();
@@ -33,6 +34,7 @@ export default function ClusterPage() {
 
   return (
     <div className="cluster-page">
+      <EventChat eventId={id!} />
       <ClusterDescription
         title={cluster.name}
         views={cluster.viewCounter}

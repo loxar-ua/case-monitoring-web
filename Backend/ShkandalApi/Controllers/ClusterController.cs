@@ -19,7 +19,7 @@ namespace shkandal_api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<ClusterReadDto>>> GetAllAsync([FromQuery] string? name, [FromQuery] int? categoryId = null, [FromQuery] string? sortBy = null, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PagedList<ClusterReadDto>>> GetAllAsync([FromQuery] string? name, [FromQuery] int? categoryId = null, [FromQuery] string? sortBy = null, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 100)
         {
             var result = await _service.GetAllAsync(name, categoryId, sortBy, pageNumber, pageSize);
 
