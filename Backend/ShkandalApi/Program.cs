@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using shkandalData;
+using shkandal_api.Hubs;
 using ShkandalData.Models;
 using ShkandalInfrastructure;
 using ShkandalInfrastructure.Repositories;
@@ -12,6 +13,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<ClusterPresenceTracker>();
 
 builder.Services.AddDbContext<ShkandalDbContext>(options =>
     options.UseNpgsql(
@@ -75,5 +78,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ClusterPresenceHub>("/hubs/presence");
 
 app.Run();

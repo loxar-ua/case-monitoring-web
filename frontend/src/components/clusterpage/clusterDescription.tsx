@@ -1,5 +1,5 @@
 import EventCard from "./eventCard";
-import type { EventReadDto } from "../../types";
+import type { ClusterPresenceStatus, EventReadDto } from "../../types";
 import "./clusterDescription.css";
 
 interface ClusterDescriptionProps {
@@ -7,13 +7,32 @@ interface ClusterDescriptionProps {
   views: number;
   image?: string;
   events: EventReadDto[];
+  activeUsers: number;
+  presenceStatus: ClusterPresenceStatus;
 }
 
-export default function ClusterDescription({ title, views, image, events }: ClusterDescriptionProps) {
+export default function ClusterDescription({
+  title,
+  views,
+  image,
+  events,
+  activeUsers,
+  presenceStatus,
+}: ClusterDescriptionProps) {
+  const presenceLabel =
+    activeUsers === 1
+      ? "1 особа переглядає цю справу зараз"
+      : `${activeUsers} осіб переглядають цю справу зараз`;
+
   return (
     <section className="cluster-description">
       <h1 className="cluster-title">{title}</h1>
       <span className="cluster-views">Відвідано: {views}</span>
+
+      <div className={`cluster-presence cluster-presence-${presenceStatus}`} aria-live="polite">
+        <span className="cluster-presence-dot" />
+        <span>{presenceLabel}</span>
+      </div>
 
       {image && (
         <div>

@@ -2,16 +2,16 @@
 obj/
 out/
 
+coverage/
+.clj-kondo/
+.lsp/
+
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
 .vscode/
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 5c37944 (add Backend directory)
 *.vs/
 *.log
 

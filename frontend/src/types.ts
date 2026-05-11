@@ -36,6 +36,8 @@ export type ClusterDetailedReadDto = {
   events: EventWithArticlesReadDto[];
 };
 
+export type ClusterPresenceStatus = "connecting" | "connected" | "disconnected" | "error";
+
 export type EventReadDto = { 
   id: number; 
   title: string; 
