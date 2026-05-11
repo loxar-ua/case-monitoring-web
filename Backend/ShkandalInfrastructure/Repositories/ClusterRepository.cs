@@ -34,6 +34,7 @@ namespace ShkandalInfrastructure.Repositories
         {
             return await _dbSet
                 .AsNoTracking()
+                .Include(c => c.Events)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
@@ -46,6 +47,7 @@ namespace ShkandalInfrastructure.Repositories
 
             return await _dbSet
                 .AsNoTracking()
+                .Include(c => c.Events)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
     }

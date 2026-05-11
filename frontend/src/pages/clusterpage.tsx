@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ClusterDescription from "../components/clusterpage/clusterDescription";
 import type { ClusterDetailedReadDto } from "../types";
+import { useClusterPresence } from "../hooks/useClusterPresence";
 
 export default function ClusterPage() {
   const { id } = useParams<{ id: string }>();
   const [cluster, setCluster] = useState<ClusterDetailedReadDto | null>(null);
   const [loading, setLoading] = useState(true);
+  const presence = useClusterPresence(id);
 
   useEffect(() => {
     if (!id) return;
@@ -38,6 +40,8 @@ export default function ClusterPage() {
         views={cluster.viewCounter}
         image={cluster.featuredImageURL}
         events={cluster.events}
+        activeUsers={presence.activeUsers}
+        presenceStatus={presence.status}
       />
     </div>
   );
